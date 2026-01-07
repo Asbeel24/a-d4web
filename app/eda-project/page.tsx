@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 export default function EDAProject() {
@@ -17,28 +19,30 @@ export default function EDAProject() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 md:py-12">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 md:mb-12 text-center">
-        EDA PROJECT
-      </h1>
-      
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-        {projectNumbers.map((num) => (
-          <Link
-            key={num}
-            href={getProjectUrl(num)}
-            className="bg-gray-900 hover:bg-gray-800 text-white text-center py-3 sm:py-4 px-4 sm:px-6 rounded transition-all duration-200 border border-gray-700 hover:border-gray-600 hover:scale-105 active:scale-95 text-sm sm:text-base"
-          >
-            {num}
-          </Link>
-        ))}
-      </div>
+    <div className="relative min-h-screen">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-12 md:mb-16 text-center tracking-tight">
+          EDA PROJECT
+        </h1>
+        
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-3 sm:gap-4">
+          {projectNumbers.map((num) => (
+            <Link
+              key={num}
+              href={getProjectUrl(num)}
+              className="bg-gray-900/50 hover:bg-gray-900/70 backdrop-blur-sm text-white text-center py-4 px-6 rounded border border-gray-800/50 hover:border-gray-700 transition-all duration-200 hover:scale-105 active:scale-95 text-sm sm:text-base font-medium"
+            >
+              {num}
+            </Link>
+          ))}
+        </div>
 
-      {/* 说明文字 */}
-      <div className="mt-12 text-center text-gray-400">
-        <p className="text-sm">
-          点击编号查看对应的 EDA PROJECT 作品
-        </p>
+        {/* 说明文字 */}
+        <div className="mt-16 text-center text-gray-400">
+          <p className="text-sm">
+            点击编号查看对应的 EDA PROJECT 作品
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export default function SocialLinks() {
           href="https://www.instagram.com/asbeel24/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white hover:text-gray-300 transition-colors"
+          className="text-white hover:text-gray-300 transition-all duration-200 hover:scale-110"
           aria-label="Instagram"
         >
           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -21,7 +21,7 @@ export default function SocialLinks() {
           href="https://open.spotify.com/artist/4m1kJeC4FApGDstuNTLR1W?si=hoInlE4SRKO90dgHMyfBKw"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white hover:text-gray-300 transition-colors"
+          className="text-white hover:text-gray-300 transition-all duration-200 hover:scale-110"
           aria-label="Spotify"
         >
           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

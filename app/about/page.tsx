@@ -1,226 +1,180 @@
-import VideoPlayer from '@/components/VideoPlayer';
-import AudioPlayer from '@/components/AudioPlayer';
-import SpotifyEmbed from '@/components/SpotifyEmbed';
-import ImageGallery from '@/components/ImageGallery';
+'use client';
+
+import { useState } from 'react';
+import SocialLinks from '@/components/SocialLinks';
 
 export default function About() {
-  // 音乐作品数据（与 WORK 页面类似）
-  const works = [
-    { title: '惡之花', artist: 'Asbeel', src: '/media/audio/works1.mp3', duration: '03:24' },
-    { title: 'PSPT2(ASBEEL Remix)', artist: 'ASBEEL', src: '/media/audio/works2.mp3', duration: '03:05' },
-  ];
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
 
-  const hiphopBeats = [
-    { title: 'Future Beat', artist: 'D4NN9', src: '/media/audio/hiphop1.mp3', duration: '03:12' },
-    { title: 'Assignment Beat', artist: 'D4nn9', src: '/media/audio/hiphop2.mp3', duration: '02:40' },
-    { title: '小动物接管时间', artist: 'D4NN9', src: '/media/audio/hiphop3.mp3', duration: '02:16' },
-    { title: 'Fuckers in London', artist: 'D4nn9', src: '/media/audio/hiphop4.mp3', duration: '03:33' },
-    { title: '猪猪侠Drill (feat. Young Navi)', artist: 'Vercent,羊那维 , D4nn9', src: '/media/audio/hiphop5.mp3', duration: '02:41' },
-    { title: 'Fm boombap 90', artist: 'D4NN9', src: '/media/audio/hiphop6.mp3', duration: '03:33' },
-    { title: '80 Em PG trap', artist: 'D4NN9', src: '/media/audio/hiphop7.mp3', duration: '03:03' },
-    { title: 'G#m 94 drake', artist: 'D4nn9', src: '/media/audio/hiphop8.mp3', duration: '02:47' },
-    { title: 'Bm trap 150', artist: 'D4NN9', src: '/media/audio/hiphop9.mp3', duration: '02:53' },
-    { title: 'Dm 143 Drill V2', artist: 'D4NN9', src: '/media/audio/hiphop10.mp3', duration: '02:41' },
-    { title: 'Dm 90 Boombap', artist: 'D4NN9', src: '/media/audio/hiphop11.mp3', duration: '03:55' },
-    { title: 'G#m trap 90', artist: 'D4NN9', src: '/media/audio/hiphop12.mp3', duration: '03:01' },
-  ];
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // 这里可以添加表单提交逻辑
+    console.log('Form submitted:', formData);
+  };
 
-  const otherTracks = [
-    { title: 'Asbeel,PHONO RECORDS - Gr7', artist: 'Artist Name', src: '/media/audio/other1.mp3', duration: '04:25' },
-  ];
-
-  // 图片画廊数据（占位符）
-  const galleryImages = [
-    '/media/images/gallery1.jpg',
-    '/media/images/gallery2.jpg',
-    '/media/images/gallery3.jpg',
-    '/media/images/gallery4.jpg',
-    '/media/images/gallery5.jpg',
-    '/media/images/gallery6.jpg',
-    '/media/images/gallery7.jpg',
-  ];
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
-    <div className="container mx-auto px-4 py-8 space-y-16">
-      {/* WORKS 部分 */}
-      <section>
-        <div className="mb-8">
-          <VideoPlayer
-            src="/media/videos/nanoparticles.mp4"
-            className="w-full h-96 mb-8"
-            autoPlay
-            loop
-            muted
-            showMuteButton
-          />
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">WORKS</h1>
-          <p className="text-gray-300 text-lg">
-            Electronic music, Beats, Audio visual And Performance
-          </p>
-        </div>
+    <div className="relative min-h-screen">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16">
+        {/* About 部分 */}
+        <section className="mb-20 md:mb-24">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+            {/* 左侧：文字内容 */}
+            <div>
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight">
+                About
+              </h1>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                ASBEEL/D4nn9
+              </h2>
+              <p className="text-gray-300 text-lg md:text-xl mb-8 leading-relaxed">
+                Electronic music producer, Beatmaker, DJ based in London. I do Bass/Leftfield/Trap/Drill music. Originally from Shenzhen, China.
+              </p>
+              
+              {/* 社交链接 */}
+              <div className="flex gap-4">
+                <SocialLinks />
+              </div>
+            </div>
 
-        {/* 音乐作品列表 */}
-        <div className="space-y-4 mb-12">
-          {works.map((work, index) => (
-            <AudioPlayer
-              key={index}
-              src={work.src}
-              title={work.title}
-              artist={work.artist}
-            />
-          ))}
-        </div>
-
-        {/* Singles 和 EP */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-4">Singles</h2>
-            <div className="bg-gray-900 h-64 flex items-center justify-center">
-              <p className="text-gray-400">Singles 图片占位符</p>
+            {/* 右侧：图片占位符 */}
+            <div className="relative">
+              <div className="bg-gray-900/50 backdrop-blur-sm h-96 md:h-[500px] rounded border border-gray-800/50 flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-4 right-4 w-32 h-32 border border-white/20 transform rotate-45" />
+                  <div className="absolute bottom-4 left-4 w-24 h-24 border border-white/10 transform -rotate-45" />
+                </div>
+                <p className="text-gray-400 text-sm">艺术家照片占位符</p>
+              </div>
             </div>
           </div>
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-4">EP</h2>
-            <div className="bg-gray-900 h-64 flex items-center justify-center">
-              <p className="text-gray-400">EP 图片占位符</p>
+        </section>
+
+        {/* Contact 部分 */}
+        <section>
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+            {/* 左侧：联系表单 */}
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight">
+                Contact
+              </h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="firstName" className="block text-gray-400 text-sm mb-2">
+                      First name
+                    </label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      className="w-full bg-gray-900/50 border border-gray-800/50 rounded px-4 py-2 text-white focus:outline-none focus:border-gray-700 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="lastName" className="block text-gray-400 text-sm mb-2">
+                      Last name
+                    </label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      className="w-full bg-gray-900/50 border border-gray-800/50 rounded px-4 py-2 text-white focus:outline-none focus:border-gray-700 transition-colors"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="email" className="block text-gray-400 text-sm mb-2">
+                      Email <span className="text-white">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full bg-gray-900/50 border border-gray-800/50 rounded px-4 py-2 text-white focus:outline-none focus:border-gray-700 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="subject" className="block text-gray-400 text-sm mb-2">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className="w-full bg-gray-900/50 border border-gray-800/50 rounded px-4 py-2 text-white focus:outline-none focus:border-gray-700 transition-colors"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-gray-400 text-sm mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={6}
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full bg-gray-900/50 border border-gray-800/50 rounded px-4 py-2 text-white focus:outline-none focus:border-gray-700 transition-colors resize-none"
+                  />
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded transition-colors font-medium"
+                  >
+                    Apply
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* 右侧：联系信息 */}
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight">
+                Contact
+              </h2>
+              <div className="space-y-6 text-white">
+                <div>
+                  <p className="text-gray-400 text-sm mb-1">Wechat</p>
+                  <p className="text-lg">smokinlonely</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 text-sm mb-1">Email</p>
+                  <p className="text-lg">dzeng001@gold.ac.uk</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 text-sm mb-1">Instagram</p>
+                  <p className="text-lg">Asbeel24</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Spotify 嵌入 */}
-        <div className="mb-12">
-          <SpotifyEmbed />
-        </div>
-
-        {/* 其他曲目 */}
-        <div className="space-y-4">
-          {otherTracks.map((track, index) => (
-            <AudioPlayer
-              key={index}
-              src={track.src}
-              title={track.title}
-              artist={track.artist}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* HIPHOP/BEATS/MIXING/MASTERING WORK SELECTED */}
-      <section>
-        <VideoPlayer
-          src="/media/videos/untitled.mov"
-          className="w-full h-96 mb-8"
-          autoPlay
-          loop
-          muted
-          showMuteButton
-        />
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
-          HIPHOP/BEATS/MIXING/MASTERING WORK SELECTED
-        </h2>
-        <div className="space-y-4">
-          {hiphopBeats.map((beat, index) => (
-            <AudioPlayer
-              key={index}
-              src={beat.src}
-              title={beat.title}
-              artist={beat.artist}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* Audio visual */}
-      <section>
-        <VideoPlayer
-          src="/media/videos/white-scratch.mp4"
-          className="w-full h-96 mb-8"
-          autoPlay
-          loop
-          muted
-          showMuteButton
-        />
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">Audio visual</h2>
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
-          <div className="cursor-pointer">
-            <VideoPlayer
-              src="/media/videos/8789_raw.mp4"
-              className="w-full h-64"
-              autoPlay={false}
-              loop
-              muted
-              showMuteButton
-            />
-          </div>
-          <div className="cursor-pointer">
-            <VideoPlayer
-              src="/media/videos/untitled.mov"
-              className="w-full h-64"
-              autoPlay={false}
-              loop
-              muted
-              showMuteButton
-            />
-          </div>
-        </div>
-        <div className="space-y-4 mb-8">
-          <h3 className="text-2xl font-bold text-white">Fuckers in London(Feat Vercent)</h3>
-          <h3 className="text-2xl font-bold text-white">808Day</h3>
-        </div>
-      </section>
-
-      {/* Interlinked */}
-      <section>
-        <VideoPlayer
-          src="/media/videos/white-scratch.mp4"
-          className="w-full h-96 mb-8"
-          autoPlay
-          loop
-          muted
-          showMuteButton
-        />
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">Interlinked</h2>
-        <div className="cursor-pointer">
-          <VideoPlayer
-            src="/media/videos/interlinked.mp4"
-            className="w-full h-96"
-            autoPlay={false}
-            loop
-            muted
-            showMuteButton
-          />
-        </div>
-      </section>
-
-      {/* DJ and Live Performance */}
-      <section>
-        <VideoPlayer
-          src="/media/videos/white-scratch.mp4"
-          className="w-full h-96 mb-8"
-          autoPlay
-          loop
-          muted
-          showMuteButton
-        />
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
-          DJ and Live Performace
-        </h2>
-        <ImageGallery images={galleryImages} className="mb-8" />
-        <div className="cursor-pointer">
-          <VideoPlayer
-            src="/media/videos/performance.mp4"
-            className="w-full h-96"
-            autoPlay={false}
-            loop
-            muted
-            showMuteButton
-          />
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
-
-
-
-
