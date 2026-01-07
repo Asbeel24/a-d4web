@@ -1,3 +1,5 @@
+'use client';
+
 import VideoPlayer from '@/components/VideoPlayer';
 import SocialLinks from '@/components/SocialLinks';
 import Link from 'next/link';

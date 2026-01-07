@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 
 interface ImageGalleryProps {
   images: string[];
@@ -32,13 +31,14 @@ export default function ImageGallery({
 
   return (
     <div className={`relative ${className}`}>
-      <div className="relative w-full h-96 bg-gray-900">
-        <Image
+      <div className="relative w-full h-96 bg-gray-900 flex items-center justify-center">
+        <img
           src={images[currentIndex]}
           alt={`Gallery image ${currentIndex + 1}`}
-          fill
-          className="object-contain"
-          unoptimized
+          className="max-w-full max-h-full object-contain"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+          }}
         />
       </div>
       {images.length > 1 && (
