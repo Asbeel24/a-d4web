@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import SafeImage from './SafeImage';
 
 interface ImageGalleryProps {
   images: string[];
@@ -32,13 +33,10 @@ export default function ImageGallery({
   return (
     <div className={`relative ${className}`}>
       <div className="relative w-full h-96 bg-gray-900 flex items-center justify-center">
-        <img
+        <SafeImage
           src={images[currentIndex]}
           alt={`Gallery image ${currentIndex + 1}`}
           className="max-w-full max-h-full object-contain"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none';
-          }}
         />
       </div>
       {images.length > 1 && (

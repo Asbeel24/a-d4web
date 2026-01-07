@@ -2,6 +2,7 @@
 
 import VideoPlayer from '@/components/VideoPlayer';
 import SocialLinks from '@/components/SocialLinks';
+import SafeImage from '@/components/SafeImage';
 import Link from 'next/link';
 
 export default function Home() {
@@ -39,14 +40,10 @@ export default function Home() {
             rel="noopener noreferrer"
             className="inline-block transition-transform hover:scale-105"
           >
-            <img
+            <SafeImage
               src="/media/images/note.png"
               alt="Note"
               className="h-10 sm:h-12 md:h-14 w-auto mx-auto opacity-80 hover:opacity-100 transition-opacity"
-              onError={(e) => {
-                // 如果图片不存在，显示占位符
-                e.currentTarget.style.display = 'none';
-              }}
             />
           </Link>
         </div>
