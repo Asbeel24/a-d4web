@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 
 export default function ParticleWaveBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (!containerRef.current) return;
