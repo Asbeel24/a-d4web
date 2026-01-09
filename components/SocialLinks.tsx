@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-export default function SocialLinks() {
+export default function SocialLinks({ vertical = false }: { vertical?: boolean }) {
   return (
-    <ul className="flex gap-4 items-center" role="list" aria-label="社交工具列">
+    <ul className={`flex ${vertical ? 'flex-col' : 'flex-row'} gap-4 items-center`} role="list" aria-label="社交工具列">
       <li>
         <Link
           href="https://www.instagram.com/asbeel24/"
