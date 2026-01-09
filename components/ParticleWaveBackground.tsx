@@ -376,10 +376,13 @@ export default function ParticleWaveBackground() {
 
                 // 每 60 帧输出一次调试信息
                 if (frameCount % 60 === 0) {
-                  const firstParticle = particles.children[0] as THREE.Mesh;
-                  if (firstParticle) {
+                  const firstParticle = particles.children[0];
+                  if (firstParticle && 'position' in firstParticle) {
                     console.log(`🔍 [调试] 帧 ${frameCount}: 第一个粒子位置:`, firstParticle.position);
-                    console.log(`🔍 [调试] 帧 ${frameCount}: 第一个粒子透明度:`, (firstParticle.material as THREE.MeshBasicMaterial).opacity);
+                    const material = (firstParticle as any).material;
+                    if (material && 'opacity' in material) {
+                      console.log(`🔍 [调试] 帧 ${frameCount}: 第一个粒子透明度:`, material.opacity);
+                    }
                   }
                 }
 
@@ -428,10 +431,13 @@ export default function ParticleWaveBackground() {
                 geometry.dispose();
                 material.dispose();
                 particles.children.forEach((child) => {
-                  if (child instanceof THREE.Mesh) {
-                    child.geometry.dispose();
-                    if (child.material instanceof THREE.Material) {
-                      child.material.dispose();
+                  if (child && 'geometry' in child && 'material' in child) {
+                    const mesh = child as any;
+                    if (mesh.geometry && typeof mesh.geometry.dispose === 'function') {
+                      mesh.geometry.dispose();
+                    }
+                    if (mesh.material && typeof mesh.material.dispose === 'function') {
+                      mesh.material.dispose();
                     }
                   }
                 });
