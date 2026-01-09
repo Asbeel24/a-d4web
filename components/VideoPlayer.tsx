@@ -23,18 +23,87 @@ export default function VideoPlayer({
 }: VideoPlayerProps) {
   const [isMuted, setIsMuted] = useState(muted);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
+  const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // 对文件路径进行 URL 编码，只编码文件名部分，保留路径结构
+  // 对于 public 文件夹中的文件，Next.js 会自动处理，但编码文件名可以确保特殊字符正确处理
+  const encodedSrc = (() => {
+    try {
+      const parts = src.split('/');
+      const lastIndex = parts.length - 1;
+      // 只编码最后一个部分（文件名），保留路径分隔符
+      if (lastIndex >= 0 && parts[lastIndex]) {
+        parts[lastIndex] = encodeURIComponent(parts[lastIndex]);
+      }
+      return parts.join('/');
+    } catch (e) {
+      console.warn('Failed to encode video src:', src, e);
+      return src; // 如果编码失败，返回原始路径
+    }
+  })();
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    const handleError = (e: Event) => {
+      setHasError(true);
+      const error = video.error;
+      let errorMsg = '视频加载失败';
+      if (error) {
+        switch (error.code) {
+          case MediaError.MEDIA_ERR_ABORTED:
+            errorMsg = '视频加载被中止';
+            break;
+          case MediaError.MEDIA_ERR_NETWORK:
+            errorMsg = '网络错误，无法加载视频';
+            break;
+          case MediaError.MEDIA_ERR_DECODE:
+            errorMsg = '视频解码失败，格式可能不支持';
+            break;
+          case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+            errorMsg = '视频格式不支持';
+            break;
+          default:
+            errorMsg = `视频加载错误 (${error.code})`;
+        }
+        console.error('Video load error:', {
+          code: error.code,
+          message: error.message,
+          src: src,
+          encodedSrc: encodedSrc,
+          error: error
+        });
+      }
+      setErrorMessage(errorMsg);
+    };
+
+    const handleCanPlay = () => {
+      setHasError(false);
+    };
+
+    const handleLoadedData = () => {
+      setHasError(false);
+    };
+
+    video.addEventListener('error', handleError);
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('loadeddata', handleLoadedData);
+
     if (autoPlay && isPlaying) {
-      video.play().catch(() => {
-        // 自动播放失败时静默处理
+      video.play().catch((err) => {
+        console.warn('Auto-play failed:', err);
       });
     }
-  }, [autoPlay, isPlaying]);
+
+    return () => {
+      video.removeEventListener('error', handleError);
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('loadeddata', handleLoadedData);
+    };
+  }, [autoPlay, isPlaying, src, encodedSrc]);
 
   const toggleMute = () => {
     const video = videoRef.current;
@@ -56,17 +125,37 @@ export default function VideoPlayer({
     }
   };
 
+  if (hasError) {
+    return (
+      <div className={`relative ${className} bg-gray-900/50 flex items-center justify-center`}>
+        <div className="text-center text-gray-400">
+          <p className="text-sm">{errorMessage || '视频加载失败'}</p>
+          <p className="text-xs mt-2 opacity-75">{src.split('/').pop()}</p>
+          <p className="text-xs mt-1 opacity-50">请检查文件格式和路径</p>
+        </div>
+      </div>
+    );
+  }
+
+  const handleVideoClick = () => {
+    if (!autoPlay) {
+      togglePlay();
+    }
+  };
+
   return (
     <div className={`relative ${className}`}>
       <video
         ref={videoRef}
-        src={src}
-        className="w-full h-full object-cover"
+        src={encodedSrc}
+        className="w-full h-full object-cover cursor-pointer"
         autoPlay={autoPlay}
         loop={loop}
         muted={isMuted}
         controls={showControls}
         playsInline
+        preload="metadata"
+        onClick={handleVideoClick}
       />
       {showMuteButton && (
         <button
@@ -96,6 +185,8 @@ export default function VideoPlayer({
     </div>
   );
 }
+
+
 
 
 

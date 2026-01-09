@@ -7,6 +7,7 @@ interface AudioPlayerProps {
   title: string;
   artist: string;
   className?: string;
+  thumbnail?: string;
 }
 
 export default function AudioPlayer({
@@ -14,6 +15,7 @@ export default function AudioPlayer({
   title,
   artist,
   className = '',
+  thumbnail,
 }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -87,12 +89,20 @@ export default function AudioPlayer({
               </svg>
             )}
           </button>
-          {/* 占位符缩略图 */}
-          <div className="w-12 h-12 bg-gray-800 rounded border border-gray-700 flex items-center justify-center">
-            <svg className="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/>
-            </svg>
-          </div>
+          {/* 缩略图 */}
+          {thumbnail ? (
+            <img
+              src={thumbnail}
+              alt={title}
+              className="w-12 h-12 rounded object-cover border border-gray-700"
+            />
+          ) : (
+            <div className="w-12 h-12 bg-gray-800 rounded border border-gray-700 flex items-center justify-center">
+              <svg className="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/>
+              </svg>
+            </div>
+          )}
         </div>
         
         {/* 曲目信息和进度条 */}

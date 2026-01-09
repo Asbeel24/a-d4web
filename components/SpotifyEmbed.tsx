@@ -4,13 +4,13 @@ interface SpotifyEmbedProps {
 }
 
 export default function SpotifyEmbed({
-  albumId = '4m1kJeC4FApGDstuNTLR1W',
+  albumId = '1pmzfDLlQAYD1qQKuqGgEg', // Philophobia EP
   className = '',
 }: SpotifyEmbedProps) {
   return (
     <div className={`w-full ${className}`}>
       <iframe
-        src={`https://open.spotify.com/embed/album/${albumId}?utm_source=generator`}
+        src={`https://open.spotify.com/embed/album/${albumId}?utm_source=generator&theme=0`}
         width="100%"
         height="352"
         frameBorder="0"
@@ -21,6 +21,8 @@ export default function SpotifyEmbed({
     </div>
   );
 }
+
+
 
 
 
