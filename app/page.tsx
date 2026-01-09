@@ -2,8 +2,6 @@
 
 import VideoPlayer from '@/components/VideoPlayer';
 import SocialLinks from '@/components/SocialLinks';
-import SafeImage from '@/components/SafeImage';
-import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -32,22 +30,6 @@ export default function Home() {
         {/* 社交链接 - 右上角 */}
         <div className="absolute top-6 right-6 md:top-8 md:right-8">
           <SocialLinks />
-        </div>
-
-        {/* Note 链接 */}
-        <div className="mb-6 md:mb-8">
-          <Link
-            href="http://163cn.tv/3jSBg4"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block transition-transform hover:scale-105"
-          >
-            <SafeImage
-              src="/media/images/3958a04633ccf592b9432ff6d46a110_edited.png"
-              alt="Note"
-              className="h-10 sm:h-12 md:h-14 w-auto mx-auto opacity-80 hover:opacity-100 transition-opacity"
-            />
-          </Link>
         </div>
 
         {/* 描述文字 */}

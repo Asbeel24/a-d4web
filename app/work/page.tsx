@@ -4,6 +4,7 @@ import VideoPlayer from '@/components/VideoPlayer';
 import AudioPlayer from '@/components/AudioPlayer';
 import SpotifyEmbed from '@/components/SpotifyEmbed';
 import ImageGallery from '@/components/ImageGallery';
+import ParticleWaveBackground from '@/components/ParticleWaveBackground';
 
 export default function Work() {
   // Singles 数据
@@ -42,7 +43,11 @@ export default function Work() {
 
   return (
     <div className="relative min-h-screen">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16 space-y-20 md:space-y-24">
+      {/* 粒子波浪背景 - 全屏覆盖，在最底层 */}
+      <ParticleWaveBackground />
+      
+      {/* 内容层 - 确保在背景之上 */}
+      <div className="relative z-10 container mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16 space-y-20 md:space-y-24">
         {/* WORKS 部分 */}
         <section className="relative">
           <div className="mb-12">
@@ -54,8 +59,8 @@ export default function Work() {
             </p>
           </div>
 
-          {/* Singles 和 EP */}
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-16">
+          {/* Singles */}
+          <div className="mb-16">
             <div className="relative">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">Singles</h2>
               <div className="space-y-3">
@@ -70,6 +75,10 @@ export default function Work() {
                 ))}
               </div>
             </div>
+          </div>
+
+          {/* EP */}
+          <div className="mb-16">
             <div className="relative">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">EP</h2>
             </div>
@@ -108,7 +117,7 @@ export default function Work() {
               <div className="cursor-pointer group">
                 <VideoPlayer
                   src="/media/videos/8789_raw (1).mp4"
-                  className="w-full h-64 rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
+                  className="w-full h-[500px] rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
                   autoPlay={false}
                   loop
                   muted
@@ -121,7 +130,7 @@ export default function Work() {
               <div className="cursor-pointer group">
                 <VideoPlayer
                   src="/media/videos/untitled (1).mov"
-                  className="w-full h-64 rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
+                  className="w-full h-[500px] rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
                   autoPlay={false}
                   loop
                   muted
@@ -138,7 +147,7 @@ export default function Work() {
           <div className="cursor-pointer group">
             <VideoPlayer
               src="/media/videos/4d9fdb1f75daa02546b0b0a3bbac0c5c.mp4"
-              className="w-full h-96 rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
+              className="w-full h-[500px] rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
               autoPlay={false}
               loop
               muted
@@ -156,7 +165,7 @@ export default function Work() {
           <div className="cursor-pointer group">
             <VideoPlayer
               src="/media/videos/466438138 (1).mp4"
-              className="w-full h-96 rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
+              className="w-full h-[500px] rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
               autoPlay={false}
               loop
               muted
@@ -174,7 +183,7 @@ export default function Work() {
               <div className="cursor-pointer group">
                 <VideoPlayer
                   src="/media/videos/Dissolve.mp4"
-                  className="w-full h-96 rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
+                  className="w-full h-[500px] rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
                   autoPlay={false}
                   loop
                   muted={false}
@@ -187,7 +196,7 @@ export default function Work() {
               <div className="cursor-pointer group">
                 <VideoPlayer
                   src="/media/videos/JereimahsParty.mp4"
-                  className="w-full h-96 rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
+                  className="w-full h-[500px] rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
                   autoPlay={false}
                   loop
                   muted={false}
@@ -200,7 +209,20 @@ export default function Work() {
               <div className="cursor-pointer group">
                 <VideoPlayer
                   src="/media/videos/0253Shanghai Freestyle.mp4"
-                  className="w-full h-96 rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
+                  className="w-full h-[500px] rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
+                  autoPlay={false}
+                  loop
+                  muted={false}
+                  showMuteButton
+                />
+              </div>
+            </div>
+            <div>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4">Binance Visualization</h3>
+              <div className="cursor-pointer group">
+                <VideoPlayer
+                  src="/media/videos/Binance Visualization.mp4"
+                  className="w-full h-[500px] rounded border border-gray-800/50 group-hover:border-gray-700 transition-colors"
                   autoPlay={false}
                   loop
                   muted={false}

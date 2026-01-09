@@ -20,37 +20,130 @@ export default function AudioPlayer({
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
+    // 重置状态
+    setError(null);
+    setIsLoading(true);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
+
     const updateTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => setDuration(audio.duration);
+    const updateDuration = () => {
+      if (!isNaN(audio.duration) && isFinite(audio.duration)) {
+        setDuration(audio.duration);
+        setIsLoading(false);
+      }
+    };
     const handleEnded = () => setIsPlaying(false);
+    const handleError = (e: Event) => {
+      setIsLoading(false);
+      setIsPlaying(false);
+      const audioError = audio.error;
+      if (audioError) {
+        switch (audioError.code) {
+          case audioError.MEDIA_ERR_ABORTED:
+            setError('音频加载被中止');
+            break;
+          case audioError.MEDIA_ERR_NETWORK:
+            setError('网络错误，无法加载音频');
+            break;
+          case audioError.MEDIA_ERR_DECODE:
+            setError('音频解码错误');
+            break;
+          case audioError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+            setError('音频格式不支持或文件不存在');
+            break;
+          default:
+            setError('无法加载音频文件');
+        }
+      } else {
+        setError('无法加载音频文件');
+      }
+    };
+    const handleCanPlay = () => {
+      setIsLoading(false);
+      setError(null);
+    };
+    const handleLoadStart = () => {
+      setIsLoading(true);
+      setError(null);
+    };
 
     audio.addEventListener('timeupdate', updateTime);
     audio.addEventListener('loadedmetadata', updateDuration);
     audio.addEventListener('ended', handleEnded);
+    audio.addEventListener('error', handleError);
+    audio.addEventListener('canplay', handleCanPlay);
+    audio.addEventListener('loadstart', handleLoadStart);
+
+    // 设置新的 src 并尝试加载音频
+    // 对 URL 进行编码，处理特殊字符（如 +, #, 空格等）
+    let audioSrc = src;
+    if (!src.startsWith('http') && !src.startsWith('data:')) {
+      // 对于相对路径，需要正确编码文件名中的特殊字符
+      // 分离路径和查询参数
+      const [path, query] = src.split('?');
+      
+      // 分离目录路径和文件名
+      const lastSlashIndex = path.lastIndexOf('/');
+      if (lastSlashIndex !== -1) {
+        const dirPath = path.substring(0, lastSlashIndex + 1); // 包含最后的斜杠
+        const fileName = path.substring(lastSlashIndex + 1);
+        // 编码文件名，但保留目录路径
+        const encodedFileName = encodeURIComponent(fileName);
+        audioSrc = dirPath + encodedFileName + (query ? `?${query}` : '');
+      } else {
+        // 如果没有路径，直接编码整个字符串
+        audioSrc = encodeURIComponent(path) + (query ? `?${query}` : '');
+      }
+    }
+    
+    if (audio.src !== audioSrc) {
+      audio.src = audioSrc;
+    }
+    audio.load();
 
     return () => {
       audio.removeEventListener('timeupdate', updateTime);
       audio.removeEventListener('loadedmetadata', updateDuration);
       audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener('error', handleError);
+      audio.removeEventListener('canplay', handleCanPlay);
+      audio.removeEventListener('loadstart', handleLoadStart);
     };
-  }, []);
+  }, [src]);
 
-  const togglePlay = () => {
+  const togglePlay = async () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
+    if (error) {
+      // 如果有错误，尝试重新加载
+      audio.load();
+      return;
     }
-    setIsPlaying(!isPlaying);
+
+    try {
+      if (isPlaying) {
+        audio.pause();
+        setIsPlaying(false);
+      } else {
+        await audio.play();
+        setIsPlaying(true);
+      }
+    } catch (err) {
+      console.error('播放错误:', err);
+      setError('无法播放音频');
+      setIsPlaying(false);
+    }
   };
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,6 +203,12 @@ export default function AudioPlayer({
           <div className="mb-2">
             <div className="text-white font-medium text-sm sm:text-base truncate">{title}</div>
             <div className="text-gray-400 text-xs sm:text-sm">-{artist}</div>
+            {error && (
+              <div className="text-red-400 text-xs mt-1">{error}</div>
+            )}
+            {isLoading && !error && (
+              <div className="text-gray-500 text-xs mt-1">加载中...</div>
+            )}
           </div>
           <div className="flex items-center gap-3">
             <div className="flex-1 min-w-0">
@@ -119,9 +218,12 @@ export default function AudioPlayer({
                 max={duration || 0}
                 value={currentTime}
                 onChange={handleSeek}
-                className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer"
+                disabled={!!error || isLoading}
+                className="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{
-                  background: `linear-gradient(to right, white 0%, white ${(currentTime / duration) * 100}%, #1f2937 ${(currentTime / duration) * 100}%, #1f2937 100%)`,
+                  background: duration > 0 
+                    ? `linear-gradient(to right, white 0%, white ${(currentTime / duration) * 100}%, #1f2937 ${(currentTime / duration) * 100}%, #1f2937 100%)`
+                    : undefined,
                 }}
               />
             </div>
@@ -131,7 +233,10 @@ export default function AudioPlayer({
           </div>
         </div>
       </div>
-      <audio ref={audioRef} src={src} preload="metadata" />
+      <audio 
+        ref={audioRef} 
+        preload="metadata"
+      />
     </div>
   );
 }
