@@ -4,10 +4,12 @@ import Link from 'next/link';
 import SocialLinks from '@/components/SocialLinks';
 
 export default function EDAProject() {
-  // 生成 001-039 的编号列表，分成三行
+  // 生成 001-057 的编号列表，每13个换一行
   const row1 = Array.from({ length: 13 }, (_, i) => (i + 1).toString().padStart(3, '0')); // 001-013
   const row2 = Array.from({ length: 13 }, (_, i) => (i + 14).toString().padStart(3, '0')); // 014-026
   const row3 = Array.from({ length: 13 }, (_, i) => (i + 27).toString().padStart(3, '0')); // 027-039
+  const row4 = Array.from({ length: 13 }, (_, i) => (i + 40).toString().padStart(3, '0')); // 040-052
+  const row5 = Array.from({ length: 5 }, (_, i) => (i + 53).toString().padStart(3, '0')); // 053-057
 
   const getProjectUrl = (num: string) => {
     return `/eda-project/${num}`;
@@ -15,7 +17,7 @@ export default function EDAProject() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center">
-      {/* 三行数字布局 */}
+      {/* 五行数字布局，每13个换行 */}
       <div className="flex flex-col gap-8 md:gap-12 items-center">
         {/* 第一行：001-013 */}
         <div className="flex flex-wrap gap-6 md:gap-8 justify-center">
@@ -46,6 +48,32 @@ export default function EDAProject() {
         {/* 第三行：027-039 */}
         <div className="flex flex-wrap gap-6 md:gap-8 justify-center">
           {row3.map((num) => (
+            <Link
+              key={num}
+              href={getProjectUrl(num)}
+              className="text-white text-lg md:text-xl font-light hover:text-gray-300 transition-colors duration-200"
+            >
+              {num}
+            </Link>
+          ))}
+        </div>
+
+        {/* 第四行：040-052 */}
+        <div className="flex flex-wrap gap-6 md:gap-8 justify-center">
+          {row4.map((num) => (
+            <Link
+              key={num}
+              href={getProjectUrl(num)}
+              className="text-white text-lg md:text-xl font-light hover:text-gray-300 transition-colors duration-200"
+            >
+              {num}
+            </Link>
+          ))}
+        </div>
+
+        {/* 第五行：053-057 */}
+        <div className="flex flex-wrap gap-6 md:gap-8 justify-center">
+          {row5.map((num) => (
             <Link
               key={num}
               href={getProjectUrl(num)}
