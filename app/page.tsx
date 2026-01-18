@@ -34,7 +34,7 @@ export default function Home() {
 
         {/* 描述文字 */}
         <p className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 drop-shadow-lg font-light tracking-wide">
-          Digital Artist, Music producer, DJ, based in London
+          Digital Artist, Music producer, DJ, based in London/Shenzhen
         </p>
       </div>
     </div>
