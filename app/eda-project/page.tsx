@@ -11,17 +11,16 @@ export default function EDAProjectList() {
   const projects = edaProjects as EdaProject[];
 
   return (
-    <div className="min-h-screen bg-black text-white p-8">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">EDA Projects</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="min-h-screen bg-black text-white p-4 sm:p-6 md:p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3 sm:gap-4 md:gap-5">
           {projects.map((project) => (
             <Link
               key={project.序号}
               href={`/eda-project/${project.序号}`}
-              className="block p-6 border border-white/20 rounded-lg hover:border-white/50 transition-colors"
+              className="flex items-center justify-center text-sm sm:text-base md:text-lg font-mono text-white hover:text-gray-300 transition-colors duration-200 active:scale-95"
             >
-              <div className="text-xl font-semibold">Project {project.序号}</div>
+              {project.序号}
             </Link>
           ))}
         </div>
