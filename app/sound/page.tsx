@@ -85,7 +85,7 @@ export default function Sound() {
 
   return (
     <div className="min-h-screen" style={{ background: '#000', color: '#fff', paddingTop: '100px' }}>
-      <div style={{ maxWidth: '1200px', padding: '0 60px' }}>
+      <div style={{ maxWidth: '1200px', padding: '0 60px' }} className="mobile-padding">
         <p style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
           Sound
         </p>
@@ -93,54 +93,9 @@ export default function Sound() {
           MUSIC
         </h1>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
-          {/* Left: EP + Singles + HIPHOP */}
-          <div>
-            {/* EP */}
-            <div style={{ marginBottom: '48px' }}>
-              <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '20px' }}>
-                EP
-              </h2>
-              <div style={{ padding: '24px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>2022-12-25</div>
-                <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>Philophobia</div>
-                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '12px' }}>Asbeel</div>
-                <a href="https://163cn.tv/85zoP7g" target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={hoverEnter} onMouseLeave={hoverLeave}>
-                  Listen on 163
-                </a>
-              </div>
-            </div>
-
-            {/* Singles */}
-            <div style={{ marginBottom: '48px' }}>
-              <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
-                Singles
-              </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: '4px', marginBottom: '32px' }}>
-                {singles.map((track) => (
-                  <button key={track.id} onClick={() => playTrack(track)} style={{ aspectRatio: '1', color: currentTrack?.id === track.id ? '#fff' : 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={btnHoverEnter} onMouseLeave={btnHoverLeave}>
-                    {track.id}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* HIPHOP/BEATS */}
-            <div style={{ marginBottom: '48px' }}>
-              <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
-                HIPHOP/BEATS/MIXING/MASTERING
-              </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: '4px', marginBottom: '32px' }}>
-                {beats.map((track) => (
-                  <button key={track.id} onClick={() => playTrack(track)} style={{ aspectRatio: '1', color: currentTrack?.id === track.id ? '#fff' : 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={btnHoverEnter} onMouseLeave={btnHoverLeave}>
-                    {track.id}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Player */}
+        {/* Mobile: stacked layout, Desktop: 2 columns */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '48px', alignItems: 'start' }} className="sound-grid">
+          {/* Player - First on mobile, Right on desktop */}
           <div>
             <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '20px' }}>
               Selected Tracks
@@ -165,8 +120,56 @@ export default function Sound() {
                 </div>
               </div>
             ) : (
-              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '14px' }}>Select a track to play</div>
+              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '14px', padding: '24px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                Select a track to play
+              </div>
             )}
+          </div>
+
+          {/* Left: EP + Singles + HIPHOP */}
+          <div>
+            {/* EP */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '20px' }}>
+                EP
+              </h2>
+              <div style={{ padding: '24px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>2022-12-25</div>
+                <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>Philophobia</div>
+                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '12px' }}>Asbeel</div>
+                <a href="https://163cn.tv/85zoP7g" target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={hoverEnter} onMouseLeave={hoverLeave}>
+                  Listen on 163
+                </a>
+              </div>
+            </div>
+
+            {/* Singles */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
+                Singles
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '4px', marginBottom: '32px' }} className="track-grid">
+                {singles.map((track) => (
+                  <button key={track.id} onClick={() => playTrack(track)} style={{ aspectRatio: '1', color: currentTrack?.id === track.id ? '#fff' : 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={btnHoverEnter} onMouseLeave={btnHoverLeave}>
+                    {track.id}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* HIPHOP/BEATS */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
+                HIPHOP/BEATS/MIXING/MASTERING
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '4px', marginBottom: '32px' }} className="track-grid">
+                {beats.map((track) => (
+                  <button key={track.id} onClick={() => playTrack(track)} style={{ aspectRatio: '1', color: currentTrack?.id === track.id ? '#fff' : 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={btnHoverEnter} onMouseLeave={btnHoverLeave}>
+                    {track.id}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -228,7 +231,7 @@ export default function Sound() {
           <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
             PHOTOS
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }} className="photo-grid">
             {djMedia.filter(item => item.type === 'image').map((item) => (
               <div
                 key={item.id}
@@ -269,6 +272,25 @@ export default function Sound() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (min-width: 1024px) {
+          .sound-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .mobile-padding {
+            padding: 0 20px !important;
+          }
+          .track-grid {
+            grid-template-columns: repeat(5, 1fr) !important;
+          }
+          .photo-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
