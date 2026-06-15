@@ -1,12 +1,9 @@
 'use client';
 
-import SocialLinks from '@/components/SocialLinks';
-import SafeImage from '@/components/SafeImage';
-
 export default function About() {
   return (
     <div className="min-h-screen" style={{ background: '#000', color: '#fff', paddingTop: '100px' }}>
-      <div style={{ maxWidth: '1200px', padding: '0 60px' }}>
+      <div style={{ maxWidth: '1200px', padding: '0 60px' }} className="about-padding">
         <p style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
           About
         </p>
@@ -14,9 +11,9 @@ export default function About() {
           ASBEEL / D4nn9
         </h1>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
+        <div className="about-grid">
           {/* 左侧：文字内容 */}
-          <div>
+          <div className="about-content">
             <div style={{ marginBottom: '40px' }}>
               <div style={{ fontSize: '10px', color: '#e64a19', letterSpacing: '0.1em', marginBottom: '8px' }}>LOCATION</div>
               <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', fontFamily: 'monospace' }}>
@@ -72,7 +69,7 @@ export default function About() {
           </div>
 
           {/* 右侧：图片 */}
-          <div>
+          <div className="about-image">
             <div style={{ aspectRatio: '3/4', overflow: 'hidden', position: 'relative' }}>
               <img
                 src="/media/images/微信图片_20250905014503_8_161.jpg"
@@ -83,6 +80,30 @@ export default function About() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .about-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          align-items: start;
+        }
+        @media (max-width: 768px) {
+          .about-padding {
+            padding: 0 20px !important;
+          }
+          .about-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+          .about-image {
+            order: -1;
+          }
+          .about-image div {
+            aspect-ratio: 1 !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

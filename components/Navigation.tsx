@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 const navItems = [
   { href: '/', label: 'HOME' },
-  { href: '/creative', label: 'CREATIVE COMPUTING' },
+  { href: '/creative', label: 'CREATIVE' },
   { href: '/sound', label: 'SOUND' },
   { href: '/visual', label: 'VISUAL' },
   { href: '/about', label: 'ABOUT' },
@@ -62,14 +62,21 @@ export default function Navigation() {
       <style>{`
         @media (max-width: 768px) {
           nav {
-            padding: 2rem 2rem !important;
+            padding: 1.5rem 1.5rem !important;
           }
           nav ul {
-            gap: 2rem !important;
+            gap: 1.2rem !important;
+            flex-wrap: wrap;
+            justify-content: flex-end;
           }
           nav ul li a {
-            font-size: 0.6rem !important;
-            letter-spacing: 0.1em !important;
+            font-size: 0.55rem !important;
+            letter-spacing: 0.08em !important;
+          }
+        }
+        @media (max-width: 480px) {
+          nav ul {
+            gap: 0.8rem !important;
           }
         }
       `}</style>

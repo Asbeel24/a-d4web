@@ -28,7 +28,7 @@ export default function Visual() {
 
   return (
     <div className="min-h-screen" style={{ background: '#000', color: '#fff', paddingTop: '100px' }}>
-      <div style={{ maxWidth: '1200px', padding: '0 60px' }}>
+      <div style={{ maxWidth: '1200px', padding: '0 60px' }} className="visual-padding">
         <p style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
           Visual
         </p>
@@ -44,7 +44,7 @@ export default function Visual() {
 
           {/* 分解 DISSOLVE */}
           <div style={{ marginBottom: '60px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', marginBottom: '20px', alignItems: 'end' }}>
+            <div className="project-header">
               <div>
                 <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '4px', color: '#fff' }}>分解 DISSOLVE</h3>
                 <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em' }}>AUDIO-VISUAL / AI ART</div>
@@ -53,7 +53,7 @@ export default function Visual() {
                 通过生成式视觉与实验声音设计的结合，探讨物质与意识的解构过程。画面呈现出高度的秩序感与随机性的碰撞。
               </p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px' }}>
+            <div className="project-grid">
               {['A1.jpg', 'A2.jpg', 'A3.jpg', 'A4.jpg', 'A5.jpg', 'A6.jpg'].map((img, i) => (
                 <img key={i} src={`/DATA/${img}`} alt={img} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', filter: 'grayscale(15%) contrast(1.1)' }} />
               ))}
@@ -62,7 +62,7 @@ export default function Visual() {
 
           {/* 恶之花：咒 THE CURSE */}
           <div style={{ marginBottom: '60px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', marginBottom: '20px', alignItems: 'end' }}>
+            <div className="project-header">
               <div>
                 <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '4px', color: '#fff' }}>恶之花：咒 THE CURSE</h3>
                 <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em' }}>EXPERIMENTAL SHORT</div>
@@ -71,7 +71,7 @@ export default function Visual() {
                 暗黑美学与超现实叙事的影像实验。利用数字媒介重塑感官体验，营造出深邃且具有压迫感的电影级氛围。
               </p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px' }}>
+            <div className="project-grid">
               {['B1.jpg', 'B2.jpg', 'B3.jpg', 'B4.jpg', 'B5.jpg', 'B6.jpg'].map((img, i) => (
                 <img key={i} src={`/DATA/${img}`} alt={img} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', filter: 'grayscale(15%) contrast(1.1)' }} />
               ))}
@@ -80,7 +80,7 @@ export default function Visual() {
 
           {/* 遨游 IMMERSIVE JOURNEY */}
           <div style={{ marginBottom: '60px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', marginBottom: '20px', alignItems: 'end' }}>
+            <div className="project-header">
               <div>
                 <h3 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: '4px', color: '#fff' }}>遨游 IMMERSIVE JOURNEY</h3>
                 <div style={{ fontSize: '10px', color: '#555', letterSpacing: '0.1em' }}>3D VISUAL / IMMERSIVE</div>
@@ -89,7 +89,7 @@ export default function Visual() {
                 构建于虚拟空间中的视觉漫游。通过细腻的光影渲染与环境构建，打破现实物理边界，呈现数字艺术的广袤感。
               </p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px' }}>
+            <div className="project-grid">
               {['C1.jpg', 'C2.jpg', 'C3.jpg', 'C4.jpg', 'C5.jpg', 'C6.jpg'].map((img, i) => (
                 <img key={i} src={`/DATA/${img}`} alt={img} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', filter: 'grayscale(15%) contrast(1.1)' }} />
               ))}
@@ -116,27 +116,14 @@ export default function Visual() {
             </div>
           )}
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+          <div className="video-grid">
             {mvs.map((video) => (
               <div
                 key={video.id}
                 onClick={() => setActiveVideo(video.id)}
                 onMouseEnter={() => setHoveredVideo(video.id)}
                 onMouseLeave={() => setHoveredVideo(null)}
-                style={{
-                  aspectRatio: '16/9',
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexDirection: 'column',
-                  gap: '8px',
-                  overflow: 'hidden',
-                  position: 'relative',
-                  transition: 'all 0.3s',
-                }}
+                className="video-item"
               >
                 {hoveredVideo === video.id && activeVideo !== video.id && (
                   <video
@@ -144,27 +131,13 @@ export default function Visual() {
                     muted
                     loop
                     playsInline
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6 }}
+                    className="video-preview"
                   />
                 )}
                 {activeVideo !== video.id && (
                   <>
-                    <div style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      border: '1px solid rgba(255,255,255,0.5)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#fff',
-                      fontSize: '14px',
-                      position: 'relative',
-                      zIndex: 1,
-                    }}>
-                      ▶
-                    </div>
-                    <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.8)', position: 'relative', zIndex: 1 }}>{video.title}</span>
+                    <div className="play-btn">▶</div>
+                    <span className="video-title">{video.title}</span>
                   </>
                 )}
               </div>
@@ -178,7 +151,7 @@ export default function Visual() {
             03 // VISUAL ARCHIVE
           </h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '6px' }}>
+          <div className="archive-grid">
             {archiveImages.map((img, i) => (
               <img key={i} src={`/DATA/${img}`} alt={img} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', filter: 'grayscale(20%)' }} />
             ))}
@@ -191,27 +164,14 @@ export default function Visual() {
             04 // AUDIO VISUAL
           </h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
+          <div className="av-grid">
             {audioVisuals.map((video) => (
               <div
                 key={video.id}
                 onClick={() => setActiveVideo(video.id)}
                 onMouseEnter={() => setHoveredVideo(video.id)}
                 onMouseLeave={() => setHoveredVideo(null)}
-                style={{
-                  aspectRatio: '16/9',
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexDirection: 'column',
-                  gap: '6px',
-                  overflow: 'hidden',
-                  position: 'relative',
-                  transition: 'all 0.3s',
-                }}
+                className="video-item"
               >
                 {hoveredVideo === video.id && activeVideo !== video.id && (
                   <video
@@ -219,27 +179,13 @@ export default function Visual() {
                     muted
                     loop
                     playsInline
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6 }}
+                    className="video-preview"
                   />
                 )}
                 {activeVideo !== video.id && (
                   <>
-                    <div style={{
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: '50%',
-                      border: '1px solid rgba(255,255,255,0.5)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#fff',
-                      fontSize: '12px',
-                      position: 'relative',
-                      zIndex: 1,
-                    }}>
-                      ▶
-                    </div>
-                    <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.8)', position: 'relative', zIndex: 1 }}>{video.title}</span>
+                    <div className="play-btn-small">▶</div>
+                    <span className="video-title-small">{video.title}</span>
                   </>
                 )}
               </div>
@@ -257,6 +203,128 @@ export default function Visual() {
           </a>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .visual-padding {
+            padding: 0 20px !important;
+          }
+          .project-header {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+          }
+          .project-header p {
+            border-left: none !important;
+            padding-left: 0 !important;
+            border-top: 1px solid #e64a19 !important;
+            padding-top: 12px !important;
+          }
+          .project-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 4px !important;
+          }
+          .video-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 8px !important;
+          }
+          .archive-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 4px !important;
+          }
+          .av-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 8px !important;
+          }
+        }
+        .project-header {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
+          margin-bottom: 20px;
+          align-items: end;
+        }
+        .project-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 6px;
+        }
+        .video-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
+        .archive-grid {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 6px;
+        }
+        .av-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 12px;
+        }
+        .video-item {
+          aspect-ratio: 16/9;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.08);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          gap: 8px;
+          overflow: hidden;
+          position: relative;
+          transition: all 0.3s;
+        }
+        .video-preview {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 0.6;
+        }
+        .play-btn {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-size: 14px;
+          position: relative;
+          z-index: 1;
+        }
+        .play-btn-small {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-size: 12px;
+          position: relative;
+          z-index: 1;
+        }
+        .video-title {
+          font-size: 10px;
+          color: rgba(255,255,255,0.8);
+          position: relative;
+          z-index: 1;
+        }
+        .video-title-small {
+          font-size: 9px;
+          color: rgba(255,255,255,0.8);
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
     </div>
   );
 }
