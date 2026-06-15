@@ -5,10 +5,10 @@ import { useState, useRef } from 'react';
 const videos = [
   { id: 1, title: 'JereimahsParty', type: 'mv', src: '/media/videos/JereimahsParty.mp4' },
   { id: 2, title: '0253Shanghai Freestyle', type: 'mv', src: '/media/videos/0253Shanghai Freestyle.mp4' },
-  { id: 3, title: 'Interlinked', type: 'audio-visual', src: '/media/videos/8789_raw (1).mp4' },
-  { id: 4, title: 'Fuckers in London', type: 'audio-visual', src: '/media/videos/untitled (1).mov' },
+  { id: 3, title: '808Day', type: 'audio-visual', src: '/media/videos/8789_raw (1).mp4' },
+  { id: 4, title: 'Interlinked', type: 'audio-visual', src: '/media/videos/untitled (1).mov' },
   { id: 5, title: 'Binance Visualization', type: 'audio-visual', src: '/media/videos/Binance Visualization.mp4' },
-  { id: 6, title: '808Day', type: 'audio-visual', src: '/media/videos/4d9fdb1f75daa02546b0b0a3bbac0c5c.mp4' },
+  { id: 6, title: 'Fuckers in London', type: 'audio-visual', src: '/media/videos/4d9fdb1f75daa02546b0b0a3bbac0c5c.mp4' },
 ];
 
 const archiveImages = [
