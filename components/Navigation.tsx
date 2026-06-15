@@ -5,28 +5,52 @@ import { usePathname } from 'next/navigation';
 
 const navItems = [
   { href: '/', label: 'HOME' },
-  { href: '/work', label: 'WORK' },
+  { href: '/creative', label: 'CREATIVE COMPUTING' },
+  { href: '/sound', label: 'SOUND' },
+  { href: '/visual', label: 'VISUAL' },
   { href: '/about', label: 'ABOUT' },
-  { href: '/eda-project', label: 'EDA PROJECT' },
 ];
 
 export default function Navigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
-      <div className="container mx-auto px-6 py-6">
-        <ul className="flex gap-6 md:gap-8">
+    <>
+      <nav style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        padding: '3rem 5rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+        <Link href="/" style={{
+          fontSize: '0.9rem',
+          fontWeight: 700,
+          letterSpacing: '0.1em',
+          color: '#fff',
+          textDecoration: 'none',
+        }}>
+          ASBEEL.D4nn9
+        </Link>
+        <ul style={{ display: 'flex', gap: '4rem', listStyle: 'none' }}>
           {navItems.map((item) => {
-            const isActive = pathname === item.href || 
+            const isActive = pathname === item.href ||
               (item.href !== '/' && pathname.startsWith(item.href));
             return (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`text-white text-sm md:text-base font-medium transition-all duration-200 hover:text-gray-300 uppercase tracking-wider ${
-                    isActive ? 'text-white' : ''
-                  }`}
+                  style={{
+                    color: isActive ? '#fff' : '#555',
+                    textDecoration: 'none',
+                    fontSize: '0.65rem',
+                    letterSpacing: '0.15em',
+                    transition: 'color 0.3s',
+                  }}
                 >
                   {item.label}
                 </Link>
@@ -34,8 +58,21 @@ export default function Navigation() {
             );
           })}
         </ul>
-      </div>
-    </nav>
+      </nav>
+      <style>{`
+        @media (max-width: 768px) {
+          nav {
+            padding: 2rem 2rem !important;
+          }
+          nav ul {
+            gap: 2rem !important;
+          }
+          nav ul li a {
+            font-size: 0.6rem !important;
+            letter-spacing: 0.1em !important;
+          }
+        }
+      `}</style>
+    </>
   );
 }
-
