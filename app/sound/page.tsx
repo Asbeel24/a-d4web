@@ -86,20 +86,65 @@ export default function Sound() {
   return (
     <div className="min-h-screen" style={{ background: '#000', color: '#fff', paddingTop: '100px' }}>
       <div style={{ maxWidth: '1200px', padding: '0 60px' }}>
+        <p style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
+          Sound
+        </p>
+        <h1 style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: 700, lineHeight: 1, marginBottom: '60px' }}>
+          MUSIC
+        </h1>
+
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
+          {/* Left: EP + Singles + HIPHOP */}
           <div>
-            <p style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
-              Sound
-            </p>
-            <h1 style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: 700, lineHeight: 1, marginBottom: '12px' }}>
-              MUSIC
-            </h1>
-            <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)' }}>
-              {tracks.length} tracks
-            </p>
+            {/* EP */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '20px' }}>
+                EP
+              </h2>
+              <div style={{ padding: '24px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>2022-12-25</div>
+                <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>Philophobia</div>
+                <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '12px' }}>Asbeel</div>
+                <a href="https://163cn.tv/85zoP7g" target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={hoverEnter} onMouseLeave={hoverLeave}>
+                  Listen on 163
+                </a>
+              </div>
+            </div>
+
+            {/* Singles */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
+                Singles
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: '4px', marginBottom: '32px' }}>
+                {singles.map((track) => (
+                  <button key={track.id} onClick={() => playTrack(track)} style={{ aspectRatio: '1', color: currentTrack?.id === track.id ? '#fff' : 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={btnHoverEnter} onMouseLeave={btnHoverLeave}>
+                    {track.id}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* HIPHOP/BEATS */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
+                HIPHOP/BEATS/MIXING/MASTERING
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: '4px', marginBottom: '32px' }}>
+                {beats.map((track) => (
+                  <button key={track.id} onClick={() => playTrack(track)} style={{ aspectRatio: '1', color: currentTrack?.id === track.id ? '#fff' : 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={btnHoverEnter} onMouseLeave={btnHoverLeave}>
+                    {track.id}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
+          {/* Right: Player */}
           <div>
+            <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '20px' }}>
+              Selected Tracks
+            </h2>
             {currentTrack ? (
               <div>
                 <audio ref={audioRef} src={currentTrack.src} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={handleEnded} autoPlay={isPlaying} />
@@ -122,48 +167,6 @@ export default function Sound() {
             ) : (
               <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '14px' }}>Select a track to play</div>
             )}
-          </div>
-        </div>
-
-        <div style={{ marginTop: '60px' }}>
-          <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '20px' }}>
-            EP
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', maxWidth: '600px' }}>
-            <div style={{ padding: '24px', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }}>2022-12-25</div>
-              <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>Philophobia</div>
-              <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginBottom: '12px' }}>Asbeel</div>
-              <a href="https://163cn.tv/85zoP7g" target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={hoverEnter} onMouseLeave={hoverLeave}>
-                Listen on 163
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ marginTop: '48px' }}>
-          <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
-            Singles
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: '4px', marginBottom: '32px' }}>
-            {singles.map((track) => (
-              <button key={track.id} onClick={() => playTrack(track)} style={{ aspectRatio: '1', color: currentTrack?.id === track.id ? '#fff' : 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={btnHoverEnter} onMouseLeave={btnHoverLeave}>
-                {track.id}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ marginTop: '40px' }}>
-          <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
-            HIPHOP/BEATS/MIXING/MASTERING
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: '4px', marginBottom: '32px' }}>
-            {beats.map((track) => (
-              <button key={track.id} onClick={() => playTrack(track)} style={{ aspectRatio: '1', color: currentTrack?.id === track.id ? '#fff' : 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={btnHoverEnter} onMouseLeave={btnHoverLeave}>
-                {track.id}
-              </button>
-            ))}
           </div>
         </div>
 
@@ -259,7 +262,7 @@ export default function Sound() {
               { name: 'SoundCloud', url: '#' },
               { name: 'Bandcamp', url: '#' },
             ].map((platform) => (
-              <a key={platform.name} href={platform.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={hoverEnter} onMouseLeave={hoverLeave}>
+              <a key={platform.name} href={platform.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', textDecoration: 'none', letterSpacing: '0.15em', textTransform: 'uppercase', transition: 'color 0.2s' }} onMouseEnter={hoverEnter} onMouseLeave={hoverLeave}>
                 {platform.name}
               </a>
             ))}
