@@ -13,6 +13,11 @@ const navItems = [
 
 export default function Navigation() {
   const pathname = usePathname();
+  const isEdaDetailPage = /^\/eda-project\/[^/]+/.test(pathname);
+
+  if (isEdaDetailPage) {
+    return null;
+  }
 
   return (
     <>

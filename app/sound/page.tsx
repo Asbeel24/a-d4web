@@ -262,8 +262,6 @@ export default function Sound() {
           <div style={{ display: 'flex', gap: '24px' }}>
             {[
               { name: 'Spotify', url: 'https://open.spotify.com/artist/4m1kJeC4FApGDstuNTLR1W' },
-              { name: 'SoundCloud', url: '#' },
-              { name: 'Bandcamp', url: '#' },
             ].map((platform) => (
               <a key={platform.name} href={platform.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', textDecoration: 'none', letterSpacing: '0.15em', textTransform: 'uppercase', transition: 'color 0.2s' }} onMouseEnter={hoverEnter} onMouseLeave={hoverLeave}>
                 {platform.name}
