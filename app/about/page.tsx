@@ -1,19 +1,36 @@
 'use client';
 
+import Image from 'next/image';
+
 export default function About() {
   return (
     <div className="min-h-screen" style={{ background: '#000', color: '#fff', paddingTop: '100px' }}>
       <div style={{ maxWidth: '1200px', padding: '0 60px' }} className="about-padding">
-        <p style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
+        <p className="motion-rise" style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
           About
         </p>
-        <h1 style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: 700, lineHeight: 1, marginBottom: '60px' }}>
+        <h1 className="motion-rise motion-delay-1" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: 700, lineHeight: 1, marginBottom: '48px' }}>
           ASBEEL / D4nn9
         </h1>
 
-        <div className="about-grid">
+        <div className="about-grid motion-rise motion-delay-2">
           {/* 左侧：文字内容 */}
           <div className="about-content">
+            <div className="about-summary">
+              <div>
+                <span>Base</span>
+                <strong>London / Shenzhen</strong>
+              </div>
+              <div>
+                <span>Practice</span>
+                <strong>Sound / AIGC / code</strong>
+              </div>
+              <div>
+                <span>Output</span>
+                <strong>AV, beats, live sets</strong>
+              </div>
+            </div>
+
             <div style={{ marginBottom: '40px' }}>
               <div style={{ fontSize: '10px', color: '#e64a19', letterSpacing: '0.1em', marginBottom: '8px' }}>LOCATION</div>
               <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', fontFamily: 'monospace' }}>
@@ -71,10 +88,13 @@ export default function About() {
           {/* 右侧：图片 */}
           <div className="about-image">
             <div style={{ aspectRatio: '3/4', overflow: 'hidden', position: 'relative' }}>
-              <img
+              <Image
                 src="/media/images/微信图片_20250905014503_8_161.jpg"
                 alt="ASBEEL/D4nn9"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ objectFit: 'cover' }}
               />
             </div>
           </div>
@@ -87,6 +107,32 @@ export default function About() {
           grid-template-columns: 1fr 1fr;
           gap: 80px;
           align-items: start;
+        }
+        .about-summary {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1px;
+          margin-bottom: 40px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.08);
+        }
+        .about-summary div {
+          display: grid;
+          gap: 8px;
+          padding: 16px;
+          background: #000;
+        }
+        .about-summary span {
+          font-size: 9px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.35);
+        }
+        .about-summary strong {
+          font-size: 12px;
+          line-height: 1.4;
+          color: rgba(255,255,255,0.72);
+          font-weight: 500;
         }
         @media (max-width: 768px) {
           .about-padding {
@@ -101,6 +147,9 @@ export default function About() {
           }
           .about-image div {
             aspect-ratio: 1 !important;
+          }
+          .about-summary {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>

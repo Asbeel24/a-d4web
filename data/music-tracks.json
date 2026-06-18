@@ -12,5 +12,20 @@
   { "id": 11, "title": "Bm trap 150", "artist": "D4NN9", "src": "/media/audio/Bm%2Btrap%2B150 (1).mp3", "category": "beats" },
   { "id": 12, "title": "Dm 143 Drill V2", "artist": "D4NN9", "src": "/media/audio/Dm 143 Drill V2.mp3", "category": "beats" },
   { "id": 13, "title": "Dm 90 Boombap", "artist": "D4NN9", "src": "/media/audio/Dm%2B90%2BBoombap%2BToxic (1).mp3", "category": "beats" },
-  { "id": 14, "title": "G#m trap 90", "artist": "D4NN9", "src": "/media/audio/Gm-trap-90.mp3", "category": "beats" }
+  { "id": 14, "title": "G#m trap 90", "artist": "D4NN9", "src": "/media/audio/Gm-trap-90.mp3", "category": "beats" },
+  { "id": 15, "title": "20240831 UK Wavy Cm 128", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/20240831-uk-wavy-cm-128.mp3", "category": "unreleased-2k25" },
+  { "id": 16, "title": "143 Fm HalfMoon", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/143-fm-halfmoon.mp3", "category": "unreleased-2k25" },
+  { "id": 17, "title": "Memphis 130 Cm", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/memphis-130-cm.mp3", "category": "unreleased-2k25" },
+  { "id": 18, "title": "November Rain Beat", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/november-rain-beat.mp3", "category": "unreleased-2k25" },
+  { "id": 19, "title": "Cm 142 UK Drill", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/cm-142-ukdrill.mp3", "category": "unreleased-2k25" },
+  { "id": 20, "title": "120 Cloudy", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/120-cloudy.mp3", "category": "unreleased-2k25" },
+  { "id": 21, "title": "G#m 135 Shanghai Noon", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/g-sharp-m-135-shanghainoon-final-mmm.mp3", "category": "unreleased-2k25" },
+  { "id": 22, "title": "Untitled210", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/untitled210.mp3", "category": "unreleased-2k25" },
+  { "id": 23, "title": "Am 135 Garage", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/am-135-garage.mp3", "category": "unreleased-2k25" },
+  { "id": 24, "title": "140 Bm Hydra", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/140-bm-hydra.mp3", "category": "unreleased-2k25" },
+  { "id": 25, "title": "Cm 150 UK Drill", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/cm-150-ukdrill.mp3", "category": "unreleased-2k25" },
+  { "id": 26, "title": "Super Wavybeat Bbm", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/super-wavybeat-bbm.mp3", "category": "unreleased-2k25" },
+  { "id": 27, "title": "Kanye 90 Boombap", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/kanye-90-boombap.mp3", "category": "unreleased-2k25" },
+  { "id": 28, "title": "ASHBECK Type Beat", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/ashbeck-typebeat.mp3", "category": "unreleased-2k25" },
+  { "id": 29, "title": "Drill 136 Jazzy", "artist": "D4NN9", "src": "/media/audio/unreleased-beat-2k25/drill-136-jazzy.mp3", "category": "unreleased-2k25" }
 ]

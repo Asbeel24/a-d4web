@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 import musicTracks from '@/data/music-tracks.json';
 
 type Track = {
@@ -97,6 +98,7 @@ export default function Sound() {
 
   const singles = tracks.filter(t => t.category === 'singles');
   const beats = tracks.filter(t => t.category === 'beats');
+  const unreleased = tracks.filter(t => t.category === 'unreleased-2k25');
 
   const hoverEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.currentTarget.style.color = '#fff';
@@ -119,7 +121,7 @@ export default function Sound() {
         {/* Mobile: stacked layout, Desktop: 2 columns */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '48px', alignItems: 'start' }} className="sound-grid motion-rise motion-delay-2">
           {/* Player - First on mobile, Right on desktop */}
-          <div>
+          <div className="player-column">
             <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '20px' }}>
               Selected Tracks
             </h2>
@@ -155,7 +157,7 @@ export default function Sound() {
           </div>
 
           {/* Left: EP + Singles + HIPHOP */}
-          <div>
+          <div className="track-column">
             {/* EP */}
             <div style={{ marginBottom: '48px' }}>
               <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '20px' }}>
@@ -201,6 +203,25 @@ export default function Sound() {
                     key={track.id}
                     track={track}
                     index={index + singles.length}
+                    isActive={currentTrack?.id === track.id}
+                    isPlaying={isPlaying}
+                    onClick={() => playTrack(track)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Unreleased Beat 2k25 */}
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
+                Unreleased Beat 2k25
+              </h2>
+              <div className="track-list">
+                {unreleased.map((track, index) => (
+                  <TrackButton
+                    key={track.id}
+                    track={track}
+                    index={index + singles.length + beats.length}
                     isActive={currentTrack?.id === track.id}
                     isPlaying={isPlaying}
                     onClick={() => playTrack(track)}
@@ -279,18 +300,22 @@ export default function Sound() {
                   background: 'rgba(255,255,255,0.03)',
                   border: '1px solid rgba(255,255,255,0.08)',
                   overflow: 'hidden',
+                  position: 'relative',
                 }}
               >
                 <a
                   href={item.src}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ display: 'block', width: '100%', height: '100%', textDecoration: 'none' }}
+                  style={{ display: 'block', width: '100%', height: '100%', textDecoration: 'none', position: 'relative' }}
                 >
-                  <img
+                  <Image
                     src={item.src}
                     alt={item.title}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    fill
+                    sizes="(max-width: 640px) 50vw, 25vw"
+                    style={{ objectFit: 'cover' }}
+                  />
                 </a>
               </div>
             ))}
@@ -314,6 +339,14 @@ export default function Sound() {
         @media (min-width: 1024px) {
           .sound-grid {
             grid-template-columns: 1fr 1fr !important;
+          }
+          .player-column {
+            order: 2;
+            position: sticky;
+            top: 112px;
+          }
+          .track-column {
+            order: 1;
           }
         }
         .player-panel,

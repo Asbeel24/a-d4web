@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 
 const videos = [
   { id: 1, title: 'JereimahsParty', type: 'mv', src: '/media/videos/JereimahsParty.mp4' },
@@ -18,6 +19,21 @@ const archiveImages = [
   'G1.jpg', 'G2.jpg', 'G3.jpg',
 ];
 
+function VisualImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
+  return (
+    <div className="visual-image">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority={priority}
+        sizes="(max-width: 768px) 50vw, 33vw"
+        style={{ objectFit: 'cover', filter: 'grayscale(15%) contrast(1.1)' }}
+      />
+    </div>
+  );
+}
+
 export default function Visual() {
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
   const [hoveredVideo, setHoveredVideo] = useState<number | null>(null);
@@ -29,12 +45,31 @@ export default function Visual() {
   return (
     <div className="min-h-screen" style={{ background: '#000', color: '#fff', paddingTop: '100px' }}>
       <div style={{ maxWidth: '1200px', padding: '0 60px' }} className="visual-padding">
-        <p style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
+        <p className="motion-rise" style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
           Visual
         </p>
-        <h1 style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: 700, lineHeight: 1, marginBottom: '12px' }}>
+        <h1 className="motion-rise motion-delay-1" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: 700, lineHeight: 1, marginBottom: '12px' }}>
           PORTFOLIO
         </h1>
+
+        <div className="visual-index motion-rise motion-delay-2">
+          <div>
+            <span>01</span>
+            <strong>AIGC visual works</strong>
+          </div>
+          <div>
+            <span>02</span>
+            <strong>Music video</strong>
+          </div>
+          <div>
+            <span>03</span>
+            <strong>Visual archive</strong>
+          </div>
+          <div>
+            <span>04</span>
+            <strong>Audio visual</strong>
+          </div>
+        </div>
 
         {/* 01 // SELECTED AIGC-VISUAL WORKS */}
         <div style={{ marginTop: '60px', marginBottom: '80px' }}>
@@ -55,7 +90,7 @@ export default function Visual() {
             </div>
             <div className="project-grid">
               {['A1.jpg', 'A2.jpg', 'A3.jpg', 'A4.jpg', 'A5.jpg', 'A6.jpg'].map((img, i) => (
-                <img key={i} src={`/DATA/${img}`} alt={img} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', filter: 'grayscale(15%) contrast(1.1)' }} />
+                <VisualImage key={img} src={`/DATA/${img}`} alt={`Dissolve visual frame ${i + 1}`} priority={i < 3} />
               ))}
             </div>
           </div>
@@ -73,7 +108,7 @@ export default function Visual() {
             </div>
             <div className="project-grid">
               {['B1.jpg', 'B2.jpg', 'B3.jpg', 'B4.jpg', 'B5.jpg', 'B6.jpg'].map((img, i) => (
-                <img key={i} src={`/DATA/${img}`} alt={img} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', filter: 'grayscale(15%) contrast(1.1)' }} />
+                <VisualImage key={img} src={`/DATA/${img}`} alt={`The Curse visual frame ${i + 1}`} />
               ))}
             </div>
           </div>
@@ -91,7 +126,7 @@ export default function Visual() {
             </div>
             <div className="project-grid">
               {['C1.jpg', 'C2.jpg', 'C3.jpg', 'C4.jpg', 'C5.jpg', 'C6.jpg'].map((img, i) => (
-                <img key={i} src={`/DATA/${img}`} alt={img} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', filter: 'grayscale(15%) contrast(1.1)' }} />
+                <VisualImage key={img} src={`/DATA/${img}`} alt={`Immersive Journey visual frame ${i + 1}`} />
               ))}
             </div>
           </div>
@@ -153,7 +188,7 @@ export default function Visual() {
 
           <div className="archive-grid">
             {archiveImages.map((img, i) => (
-              <img key={i} src={`/DATA/${img}`} alt={img} style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', filter: 'grayscale(20%)' }} />
+              <VisualImage key={img} src={`/DATA/${img}`} alt={`Visual archive frame ${i + 1}`} />
             ))}
           </div>
         </div>
@@ -236,6 +271,9 @@ export default function Visual() {
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 8px !important;
           }
+          .visual-index {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
         }
         .project-header {
           display: grid;
@@ -248,6 +286,38 @@ export default function Visual() {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 6px;
+        }
+        .visual-index {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1px;
+          margin-top: 32px;
+          border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.08);
+        }
+        .visual-index div {
+          display: grid;
+          gap: 10px;
+          padding: 16px;
+          background: #000;
+        }
+        .visual-index span {
+          font-size: 10px;
+          color: #e64a19;
+          font-variant-numeric: tabular-nums;
+        }
+        .visual-index strong {
+          font-size: 12px;
+          font-weight: 500;
+          color: rgba(255,255,255,0.68);
+          line-height: 1.4;
+        }
+        .visual-image {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          overflow: hidden;
+          background: rgba(255,255,255,0.03);
         }
         .video-grid {
           display: grid;
