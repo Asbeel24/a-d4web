@@ -22,6 +22,38 @@ const djMedia = [
   { id: 8, title: 'Club Event', type: 'image', src: '/media/images/f828c3a57ae0349f1d097625dff305a.jpg' },
 ];
 
+function TrackButton({
+  track,
+  isActive,
+  isPlaying,
+  index,
+  onClick,
+}: {
+  track: Track;
+  isActive: boolean;
+  isPlaying: boolean;
+  index: number;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={`Play ${track.title} by ${track.artist}`}
+      aria-pressed={isActive}
+      className={`track-button${isActive ? ' is-active' : ''}`}
+      onClick={onClick}
+      style={{ animationDelay: `${index * 35}ms` }}
+    >
+      <span className="track-index">{track.id.toString().padStart(2, '0')}</span>
+      <span className="track-copy">
+        <span className="track-title">{track.title}</span>
+        <span className="track-artist">{track.artist}</span>
+      </span>
+      <span className="track-state">{isActive ? (isPlaying ? 'PLAYING' : 'SELECTED') : 'PLAY'}</span>
+    </button>
+  );
+}
+
 export default function Sound() {
   const tracks = musicTracks as Track[];
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
@@ -74,37 +106,33 @@ export default function Sound() {
     e.currentTarget.style.color = 'rgba(255,255,255,0.5)';
   };
 
-  const btnHoverEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.currentTarget.style.color = '#fff';
-  };
-
-  const btnHoverLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const trackId = Number(e.currentTarget.textContent);
-    e.currentTarget.style.color = currentTrack?.id === trackId ? '#fff' : 'rgba(255,255,255,0.5)';
-  };
-
   return (
     <div className="min-h-screen" style={{ background: '#000', color: '#fff', paddingTop: '100px' }}>
       <div style={{ maxWidth: '1200px', padding: '0 60px' }} className="mobile-padding">
-        <p style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
+        <p className="motion-rise" style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#555', marginBottom: '12px' }}>
           Sound
         </p>
-        <h1 style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: 700, lineHeight: 1, marginBottom: '60px' }}>
+        <h1 className="motion-rise motion-delay-1" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', fontWeight: 700, lineHeight: 1, marginBottom: '60px' }}>
           MUSIC
         </h1>
 
         {/* Mobile: stacked layout, Desktop: 2 columns */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '48px', alignItems: 'start' }} className="sound-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '48px', alignItems: 'start' }} className="sound-grid motion-rise motion-delay-2">
           {/* Player - First on mobile, Right on desktop */}
           <div>
             <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '20px' }}>
               Selected Tracks
             </h2>
             {currentTrack ? (
-              <div>
+              <div className="player-panel">
                 <audio ref={audioRef} src={currentTrack.src} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={handleEnded} autoPlay={isPlaying} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
-                  <button onClick={() => playTrack(currentTrack)} style={{ width: '48px', height: '48px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', background: 'transparent', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', transition: 'all 0.2s' }}>
+                  <button
+                    type="button"
+                    aria-label={isPlaying ? `Pause ${currentTrack.title}` : `Play ${currentTrack.title}`}
+                    className="player-toggle"
+                    onClick={() => playTrack(currentTrack)}
+                  >
                     {isPlaying ? '▐▐' : '▶'}
                   </button>
                   <div>
@@ -120,8 +148,8 @@ export default function Sound() {
                 </div>
               </div>
             ) : (
-              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '14px', padding: '24px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                Select a track to play
+              <div className="empty-player">
+                Select a track
               </div>
             )}
           </div>
@@ -148,11 +176,16 @@ export default function Sound() {
               <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
                 Singles
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '4px', marginBottom: '32px' }} className="track-grid">
-                {singles.map((track) => (
-                  <button key={track.id} onClick={() => playTrack(track)} style={{ aspectRatio: '1', color: currentTrack?.id === track.id ? '#fff' : 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={btnHoverEnter} onMouseLeave={btnHoverLeave}>
-                    {track.id}
-                  </button>
+              <div className="track-list">
+                {singles.map((track, index) => (
+                  <TrackButton
+                    key={track.id}
+                    track={track}
+                    index={index}
+                    isActive={currentTrack?.id === track.id}
+                    isPlaying={isPlaying}
+                    onClick={() => playTrack(track)}
+                  />
                 ))}
               </div>
             </div>
@@ -162,11 +195,16 @@ export default function Sound() {
               <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
                 HIPHOP/BEATS/MIXING/MASTERING
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '4px', marginBottom: '32px' }} className="track-grid">
-                {beats.map((track) => (
-                  <button key={track.id} onClick={() => playTrack(track)} style={{ aspectRatio: '1', color: currentTrack?.id === track.id ? '#fff' : 'rgba(255,255,255,0.5)', fontSize: '11px', fontFamily: 'monospace', background: 'transparent', border: 'none', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={btnHoverEnter} onMouseLeave={btnHoverLeave}>
-                    {track.id}
-                  </button>
+              <div className="track-list">
+                {beats.map((track, index) => (
+                  <TrackButton
+                    key={track.id}
+                    track={track}
+                    index={index + singles.length}
+                    isActive={currentTrack?.id === track.id}
+                    isPlaying={isPlaying}
+                    onClick={() => playTrack(track)}
+                  />
                 ))}
               </div>
             </div>
@@ -193,6 +231,7 @@ export default function Sound() {
               ) : (
                 <button
                   onClick={() => setActiveVideo(item.id)}
+                  className="media-play-card"
                   style={{
                     width: '100%',
                     maxWidth: '200px',
@@ -263,7 +302,7 @@ export default function Sound() {
             {[
               { name: 'Spotify', url: 'https://open.spotify.com/artist/4m1kJeC4FApGDstuNTLR1W' },
             ].map((platform) => (
-              <a key={platform.name} href={platform.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', textDecoration: 'none', letterSpacing: '0.15em', textTransform: 'uppercase', transition: 'color 0.2s' }} onMouseEnter={hoverEnter} onMouseLeave={hoverLeave}>
+              <a key={platform.name} className="platform-link" href={platform.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', textDecoration: 'none', letterSpacing: '0.15em', textTransform: 'uppercase', transition: 'color 0.2s' }} onMouseEnter={hoverEnter} onMouseLeave={hoverLeave}>
                 {platform.name}
               </a>
             ))}
@@ -277,12 +316,123 @@ export default function Sound() {
             grid-template-columns: 1fr 1fr !important;
           }
         }
+        .player-panel,
+        .empty-player {
+          border: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.02);
+          padding: 24px;
+        }
+        .empty-player {
+          color: rgba(255,255,255,0.32);
+          font-size: 14px;
+          letter-spacing: 0.08em;
+        }
+        .player-toggle {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.24);
+          background: transparent;
+          color: #fff;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 16px;
+          transition: transform 180ms ease, border-color 220ms ease, background 220ms ease;
+        }
+        .player-toggle:hover {
+          border-color: rgba(255,255,255,0.6);
+          background: rgba(255,255,255,0.06);
+        }
+        .player-toggle:active {
+          transform: scale(0.96);
+        }
+        .track-list {
+          display: grid;
+          gap: 6px;
+          margin-bottom: 32px;
+        }
+        .track-button {
+          width: 100%;
+          min-height: 54px;
+          display: grid;
+          grid-template-columns: 42px minmax(0, 1fr) auto;
+          align-items: center;
+          gap: 14px;
+          padding: 10px 0;
+          border: 0;
+          border-bottom: 1px solid rgba(255,255,255,0.07);
+          background: transparent;
+          color: rgba(255,255,255,0.48);
+          cursor: pointer;
+          text-align: left;
+          animation: motion-rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+          transition: color 220ms ease, border-color 220ms ease, transform 180ms ease, background 220ms ease;
+        }
+        .track-button:hover,
+        .track-button:focus-visible,
+        .track-button.is-active {
+          color: #fff;
+          border-color: rgba(255,255,255,0.24);
+          background: linear-gradient(90deg, rgba(255,255,255,0.055), transparent 68%);
+        }
+        .track-button:active {
+          transform: translateY(1px);
+        }
+        .track-index {
+          font-size: 11px;
+          letter-spacing: 0.12em;
+          color: rgba(255,255,255,0.36);
+          font-variant-numeric: tabular-nums;
+        }
+        .track-copy {
+          display: grid;
+          gap: 4px;
+          min-width: 0;
+        }
+        .track-title {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-size: 13px;
+          color: currentColor;
+        }
+        .track-artist {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-size: 10px;
+          color: rgba(255,255,255,0.36);
+        }
+        .track-state {
+          font-size: 9px;
+          letter-spacing: 0.16em;
+          color: rgba(255,255,255,0.34);
+        }
+        .track-button.is-active .track-index,
+        .track-button.is-active .track-state {
+          color: #fff;
+        }
+        .media-play-card,
+        .platform-link {
+          transition: transform 200ms ease, border-color 220ms ease, background 220ms ease, color 220ms ease;
+        }
+        .media-play-card:hover {
+          transform: translateY(-2px);
+          border-color: rgba(255,255,255,0.24) !important;
+          background: rgba(255,255,255,0.055) !important;
+        }
         @media (max-width: 640px) {
           .mobile-padding {
             padding: 0 20px !important;
           }
-          .track-grid {
-            grid-template-columns: repeat(5, 1fr) !important;
+          .track-button {
+            grid-template-columns: 34px minmax(0, 1fr);
+            gap: 10px;
+          }
+          .track-state {
+            display: none;
           }
           .photo-grid {
             grid-template-columns: repeat(2, 1fr) !important;

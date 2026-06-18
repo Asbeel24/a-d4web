@@ -15,7 +15,7 @@ export default function Home() {
         gap: '4rem',
       }}>
         {/* Left - Title */}
-        <div>
+        <div className="motion-rise">
           <h1 style={{
             fontFamily: "'Bebas Neue', sans-serif",
             fontSize: 'clamp(4rem, 14vw, 14rem)',
@@ -29,7 +29,7 @@ export default function Home() {
         </div>
 
         {/* Right - Content */}
-        <div style={{ position: 'relative', paddingLeft: '4rem' }}>
+        <div className="motion-rise motion-delay-1" style={{ position: 'relative', paddingLeft: '4rem' }}>
           {/* Vertical accent line */}
           <div style={{
             position: 'absolute',
@@ -66,7 +66,7 @@ export default function Home() {
         </div>
 
         {/* Bottom Bar */}
-        <div style={{
+        <div className="motion-rise motion-delay-2" style={{
           position: 'absolute',
           bottom: '4rem',
           left: '5rem',
