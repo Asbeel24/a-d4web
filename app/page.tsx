@@ -110,8 +110,8 @@ export default function Home() {
           inset: 0;
           pointer-events: none;
           background:
-            radial-gradient(circle at 22% 48%, rgba(0,0,0,0.18), rgba(0,0,0,0.58) 62%),
-            linear-gradient(90deg, rgba(3,3,3,0.82) 0%, rgba(3,3,3,0.14) 48%, rgba(3,3,3,0.34) 100%);
+            radial-gradient(circle at 22% 48%, rgba(0,0,0,0.08), rgba(0,0,0,0.34) 64%),
+            linear-gradient(90deg, rgba(3,3,3,0.76) 0%, rgba(3,3,3,0.02) 48%, rgba(3,3,3,0.18) 100%);
           z-index: 1;
         }
         .home-hero {
@@ -124,8 +124,8 @@ export default function Home() {
           pointer-events: none;
           z-index: 1;
           background:
-            linear-gradient(to bottom, rgba(3,3,3,0.68) 0%, rgba(3,3,3,0.02) 24%, rgba(3,3,3,0.34) 100%),
-            radial-gradient(circle at 78% 55%, transparent 0, rgba(3,3,3,0.48) 68%);
+            linear-gradient(to bottom, rgba(3,3,3,0.5) 0%, rgba(3,3,3,0) 26%, rgba(3,3,3,0.22) 100%),
+            radial-gradient(circle at 78% 55%, transparent 0, rgba(3,3,3,0.22) 70%);
         }
         .home-scanline {
           position: absolute;
@@ -166,8 +166,8 @@ export default function Home() {
           }
           .home-shell::before {
             background:
-              linear-gradient(to bottom, rgba(3,3,3,0.82), rgba(3,3,3,0.32) 44%, rgba(3,3,3,0.72)),
-              radial-gradient(circle at 58% 32%, transparent 0, rgba(3,3,3,0.76) 66%);
+              linear-gradient(to bottom, rgba(3,3,3,0.72), rgba(3,3,3,0.18) 44%, rgba(3,3,3,0.56)),
+              radial-gradient(circle at 58% 32%, transparent 0, rgba(3,3,3,0.48) 66%);
           }
         }
       `}</style>
