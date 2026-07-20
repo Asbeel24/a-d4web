@@ -378,12 +378,21 @@ export default function Visual() {
           .integrated-grid {
             grid-template-columns: repeat(2, 1fr) !important;
           }
-          .integrated-grid.is-wide,
-          .integrated-grid.is-storyboard {
+          .integrated-grid.is-wide {
             grid-template-columns: 1fr !important;
+          }
+          .integrated-grid.is-storyboard {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 4px !important;
           }
           .integrated-grid.is-portrait {
             grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .integrated-project {
+            margin-bottom: 56px !important;
+          }
+          .integrated-project-header {
+            margin-bottom: 16px !important;
           }
           .integrated-project-copy {
             gap: 10px !important;
