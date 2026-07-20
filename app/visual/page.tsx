@@ -19,6 +19,70 @@ const archiveImages = [
   'G1.jpg', 'G2.jpg', 'G3.jpg',
 ];
 
+const fullRoles = 'DIRECTOR / WRITER / CREATIVE DIRECTOR / AI VIDEO / EDITING / VFX / COLOR / SOUND DESIGN';
+
+type VisualProject = {
+  title: string;
+  subtitle: string;
+  description: string;
+  images: string[];
+  layout?: 'portrait' | 'wide' | 'storyboard';
+  roles?: string;
+};
+
+const newProjects: VisualProject[] = [
+  {
+    title: 'SHANGHAI NIGHT',
+    subtitle: 'AI music video',
+    description: '通过真人照片生成素材与制作的 Shanghai Night AIGC 音乐视频。',
+    images: Array.from({ length: 12 }, (_, i) => `/media/images/recent/shanghai-night/k${i + 1}.webp`),
+  },
+  {
+    title: '拍拍 TAPTAP',
+    subtitle: 'AI horror short film',
+    description: 'TapNow × 葬 AI 恐怖片黑客松作品。',
+    images: Array.from({ length: 6 }, (_, i) => `/media/images/recent/taptap/h${i + 1}.webp`),
+  },
+  {
+    title: 'PLUIEEE',
+    subtitle: 'AI stylized vertical film',
+    description: '三渲二风格短片。',
+    images: Array.from({ length: 6 }, (_, i) => `/media/images/recent/pluieee/j${i + 1}.webp`),
+    layout: 'portrait',
+  },
+  {
+    title: 'ATTACHMENT',
+    subtitle: 'AI experimental film',
+    description: '以探索实验影像为核心意象，生成图像来表达肉体、情绪与依赖关系。',
+    images: Array.from({ length: 6 }, (_, i) => `/media/images/recent/attachment/i${i + 1}.webp`),
+    layout: 'wide',
+  },
+  {
+    title: 'TAPNOW HANGZHOU',
+    subtitle: 'AI opening animation',
+    description: '为 TapNow 杭州活动制作的开场动画，以都市异相为主题的瑞克莫蒂风格短片。',
+    images: Array.from({ length: 6 }, (_, i) => `/media/images/recent/tapnow-hangzhou/l${i + 1}.webp`),
+  },
+  {
+    title: 'FOLDIN',
+    subtitle: 'AI stylized short / Storyboard',
+    description: '水墨画风格动画短片。',
+    images: [2, 5, 11, 12, 16, 18].map(page => `/media/images/recent/foldin/page-${page}.webp`),
+    layout: 'storyboard',
+  },
+  {
+    title: '晓力的一天',
+    subtitle: 'AI commercial / Storyboard',
+    description: 'AI 商业广告分镜制作。',
+    images: [2, 16, 21, 23, 28, 35].map(page => `/media/images/recent/xiaoli-day/page-${page}.webp`),
+    layout: 'storyboard',
+    roles: 'DIRECTOR / WRITER / CREATIVE DIRECTOR',
+  },
+];
+
+const shanghaiNight = newProjects[0];
+const newAigcProjects = newProjects.slice(1);
+
 function VisualImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
   return (
     <div className="visual-image">
@@ -31,6 +95,37 @@ function VisualImage({ src, alt, priority = false }: { src: string; alt: string;
         style={{ objectFit: 'cover', filter: 'grayscale(15%) contrast(1.1)' }}
       />
     </div>
+  );
+}
+
+function IntegratedProject({ project }: { project: VisualProject }) {
+  return (
+    <article className="integrated-project">
+      <header className="project-header integrated-project-header">
+        <div>
+          <h3>{project.title}</h3>
+          <div className="integrated-project-type">{project.subtitle}</div>
+        </div>
+        <div className="integrated-project-copy">
+          <p>{project.description}</p>
+          <p className="integrated-project-roles">{project.roles ?? fullRoles}</p>
+        </div>
+      </header>
+
+      <div className={`integrated-grid is-${project.layout ?? 'cinematic'}`}>
+        {project.images.map((src, index) => (
+          <div className="integrated-project-image" key={src}>
+            <Image
+              src={src}
+              alt={`${project.title} still frame ${index + 1}`}
+              fill
+              sizes={project.layout === 'portrait' ? '(max-width: 768px) 50vw, 17vw' : '(max-width: 768px) 100vw, 33vw'}
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+        ))}
+      </div>
+    </article>
   );
 }
 
@@ -130,6 +225,10 @@ export default function Visual() {
               ))}
             </div>
           </div>
+
+          {newAigcProjects.map(project => (
+            <IntegratedProject project={project} key={project.title} />
+          ))}
         </div>
 
         {/* 02 // MUSIC VIDEO */}
@@ -137,6 +236,8 @@ export default function Visual() {
           <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '24px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             02 // MUSIC VIDEO
           </h2>
+
+          <IntegratedProject project={shanghaiNight} />
 
           {activeVideo && mvs.find(v => v.id === activeVideo) && (
             <div style={{ marginBottom: '16px', aspectRatio: '16/9', maxHeight: '500px', background: '#000', position: 'relative' }}>
@@ -274,6 +375,23 @@ export default function Visual() {
           .visual-index {
             grid-template-columns: repeat(2, 1fr) !important;
           }
+          .integrated-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .integrated-grid.is-wide,
+          .integrated-grid.is-storyboard {
+            grid-template-columns: 1fr !important;
+          }
+          .integrated-grid.is-portrait {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .integrated-project-copy {
+            gap: 10px !important;
+            padding-top: 12px !important;
+            padding-left: 0 !important;
+            border-top: 1px solid #e64a19 !important;
+            border-left: 0 !important;
+          }
         }
         .project-header {
           display: grid;
@@ -393,6 +511,82 @@ export default function Visual() {
           color: rgba(255,255,255,0.8);
           position: relative;
           z-index: 1;
+        }
+        .integrated-project {
+          margin-bottom: 72px;
+        }
+        .integrated-project-header {
+          align-items: start;
+        }
+        .integrated-project h3 {
+          color: #fff;
+          font-size: 1.2rem;
+          font-weight: 600;
+          line-height: 1.2;
+        }
+        .integrated-project-type {
+          display: block;
+          margin-top: 4px;
+          color: #555;
+          font-size: 10px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+        .integrated-project-copy {
+          display: grid;
+          gap: 12px;
+          padding-left: 16px;
+          border-left: 1px solid #e64a19;
+        }
+        .integrated-project-copy p {
+          color: rgba(255,255,255,0.5);
+          font-size: 12px;
+          line-height: 1.65;
+          text-wrap: pretty;
+        }
+        .integrated-project-copy .integrated-project-roles {
+          color: rgba(255,255,255,0.3);
+          font-size: 9px;
+          letter-spacing: 0.08em;
+          line-height: 1.65;
+          overflow-wrap: anywhere;
+        }
+        .integrated-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 6px;
+        }
+        .integrated-project-image {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          overflow: hidden;
+          background: rgba(255,255,255,0.035);
+        }
+        .integrated-project-image img {
+          transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), filter 400ms ease;
+        }
+        .integrated-project-image:hover img {
+          transform: scale(1.025);
+          filter: contrast(1.04);
+        }
+        .integrated-grid.is-portrait {
+          grid-template-columns: repeat(6, 1fr);
+        }
+        .integrated-grid.is-portrait .integrated-project-image {
+          aspect-ratio: 9 / 16;
+        }
+        .integrated-grid.is-wide {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .integrated-grid.is-wide .integrated-project-image {
+          aspect-ratio: 2.35 / 1;
+        }
+        .integrated-grid.is-storyboard {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .integrated-grid.is-storyboard .integrated-project-image {
+          background: #eceae4;
         }
       `}</style>
     </div>
