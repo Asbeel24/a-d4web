@@ -1,17 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
 import Image from 'next/image';
-import FilmPlayer from '@/components/FilmPlayer';
-
-const videos = [
-  { id: 1, title: 'JereimahsParty', type: 'mv', src: '/media/videos/JereimahsParty.mp4' },
-  { id: 2, title: '0253Shanghai Freestyle', type: 'mv', src: '/media/videos/0253Shanghai Freestyle.mp4' },
-  { id: 3, title: 'Fuckers in London', type: 'audio-visual', src: '/media/videos/8789_raw (1).mp4' },
-  { id: 4, title: '808Day', type: 'audio-visual', src: '/media/videos/untitled (1).mov' },
-  { id: 5, title: 'Binance Visualization', type: 'audio-visual', src: '/media/videos/Binance Visualization.mp4' },
-  { id: 6, title: 'Interlinked', type: 'audio-visual', src: '/media/videos/4d9fdb1f75daa02546b0b0a3bbac0c5c.mp4' },
-];
 
 const archiveImages = [
   'D1.jpg', 'D2.jpg', 'D3.jpg', 'D4.jpg',
@@ -30,7 +19,7 @@ type VisualProject = {
   layout?: 'portrait' | 'wide' | 'storyboard';
   roles?: string;
   id?: string;
-  video?: string;
+  storyboards?: string[];
 };
 
 const newProjects: VisualProject[] = [
@@ -43,13 +32,14 @@ const newProjects: VisualProject[] = [
   {
     title: '拍拍 TAPTAP',
     id: 'taptap',
-    subtitle: 'AI horror short film',
+    subtitle: 'Short film / 叙事短片',
     description: 'TapNow × 葬 AI 恐怖片黑客松作品。',
     images: Array.from({ length: 6 }, (_, i) => `/media/images/recent/taptap/h${i + 1}.webp`),
   },
   {
-    title: 'PLUIEEE',
-    subtitle: 'AI stylized vertical film',
+    title: 'PLUIE',
+    id: 'pluie',
+    subtitle: 'Short film / 叙事短片',
     description: '三渲二风格短片。',
     images: Array.from({ length: 6 }, (_, i) => `/media/images/recent/pluieee/j${i + 1}.webp`),
     layout: 'portrait',
@@ -57,7 +47,6 @@ const newProjects: VisualProject[] = [
   {
     title: 'ATTACHMENT',
     id: 'attachment',
-    video: '/media/videos/recent/attachment.mp4',
     subtitle: 'AI experimental film',
     description: '以探索实验影像为核心意象，生成图像来表达肉体、情绪与依赖关系。',
     images: Array.from({ length: 6 }, (_, i) => `/media/images/recent/attachment/i${i + 1}.webp`),
@@ -71,23 +60,30 @@ const newProjects: VisualProject[] = [
   },
   {
     title: 'FOLDIN',
-    subtitle: 'AI stylized short / Storyboard',
-    description: '水墨画风格动画短片。',
-    images: [2, 5, 11, 12, 16, 18].map(page => `/media/images/recent/foldin/page-${page}.webp`),
-    layout: 'storyboard',
+    id: 'foldin',
+    subtitle: 'Short film / 叙事短片',
+    description: '围绕城市与空间折叠展开的风格化叙事短片。展示镜头画面与前期分镜设计。',
+    images: [1, 2, 3].map(n => `/media/images/recent/foldin/still-${n}.webp`),
+    storyboards: [2, 5, 11, 12, 16, 18].map(page => `/media/images/recent/foldin/page-${page}.webp`),
   },
   {
     title: '晓力的一天',
-    subtitle: 'AI commercial / Storyboard',
+    id: 'xiaoli-day',
+    subtitle: 'Commercials / 商业影像 · 分镜设计',
     description: 'AI 商业广告分镜制作。',
-    images: [2, 16, 21, 23, 28, 35].map(page => `/media/images/recent/xiaoli-day/page-${page}.webp`),
+    images: [],
+    storyboards: [2, 16, 21, 23, 28, 35].map(page => `/media/images/recent/xiaoli-day/page-${page}.webp`),
     layout: 'storyboard',
     roles: 'DIRECTOR / WRITER / CREATIVE DIRECTOR',
   },
+  { title: 'SURF ON PAIN', id: 'surf-on-pain', subtitle: 'Music video / 音乐影像', description: '音乐影像作品，展示叙事与风格化视觉的探索。', images: [1, 2, 3].map(n => `/media/images/recent/surf-on-pain/${n}.webp`), roles: '' },
+  { title: 'AGENT1', id: 'agent1', subtitle: 'Commercials / 商业影像', description: '围绕产品形态、材质与光影展开的商业影像。', images: [1, 2, 3].map(n => `/media/images/recent/agent1/${n}.webp`), roles: '' },
 ];
 
 const shanghaiNight = newProjects[0];
-const newAigcProjects = newProjects.slice(1);
+const narrativeProjects = newProjects.filter(p => ['taptap', 'pluie', 'foldin'].includes(p.id ?? ''));
+const commercialProjects = newProjects.filter(p => p.id === 'xiaoli-day' || p.id === 'agent1' || p.title === 'TAPNOW HANGZHOU');
+const experimentalProjects = newProjects.filter(p => p.id === 'attachment');
 
 function VisualImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
   return (
@@ -114,11 +110,10 @@ function IntegratedProject({ project }: { project: VisualProject }) {
         </div>
         <div className="integrated-project-copy">
           <p>{project.description}</p>
-          <p className="integrated-project-roles">{project.roles ?? fullRoles}</p>
+          {(project.roles ?? fullRoles) && <p className="integrated-project-roles">{project.roles ?? fullRoles}</p>}
         </div>
       </header>
 
-      {project.video && <FilmPlayer src={project.video} poster={project.images[1]} title={project.title} />}
       <div className={`integrated-grid is-${project.layout ?? 'cinematic'}`}>
         {project.images.map((src, index) => (
           <div className="integrated-project-image" key={src}>
@@ -132,18 +127,12 @@ function IntegratedProject({ project }: { project: VisualProject }) {
           </div>
         ))}
       </div>
+      {project.storyboards && <details className="storyboard-details"><summary>查看分镜设计 · {project.storyboards.length} 页节选</summary><div className="storyboard-pages">{project.storyboards.map((src, index) => <a key={src} href={src} target="_blank" rel="noreferrer"><Image src={src} alt={`${project.title} 分镜脚本节选 ${index + 1}`} width={1920} height={1080} sizes="(max-width: 768px) 100vw, 80vw" /><span>查看原图 ↗</span></a>)}</div></details>}
     </article>
   );
 }
 
 export default function Visual() {
-  const [activeVideo, setActiveVideo] = useState<number | null>(null);
-  const [hoveredVideo, setHoveredVideo] = useState<number | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const mvs = videos.filter(v => v.type === 'mv');
-  const audioVisuals = videos.filter(v => v.type === 'audio-visual');
-
   return (
     <div className="min-h-screen" style={{ background: '#000', color: '#fff', paddingTop: '100px' }}>
       <div style={{ maxWidth: '1200px', padding: '0 60px' }} className="visual-padding">
@@ -157,26 +146,26 @@ export default function Visual() {
         <div className="visual-index motion-rise motion-delay-2">
           <a href="#aigc">
             <span>01</span>
-            <strong>AIGC visual works</strong>
+            <strong>实验影像 / Experimental</strong>
           </a>
           <a href="#music-video">
             <span>02</span>
-            <strong>Music video</strong>
+            <strong>音乐影像 / Music video</strong>
           </a>
-          <a href="#archive">
+          <a href="#short-film">
             <span>03</span>
-            <strong>Visual archive</strong>
+            <strong>叙事短片 / Short film</strong>
           </a>
-          <a href="#audio-visual">
+          <a href="#commercials">
             <span>04</span>
-            <strong>Audio visual</strong>
+            <strong>商业影像 / Commercials</strong>
           </a>
         </div>
 
-        {/* 01 // SELECTED AIGC-VISUAL WORKS */}
+        {/* 01 // EXPERIMENTAL · 实验影像 */}
         <div id="aigc" style={{ marginTop: '60px', marginBottom: '80px' }}>
           <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '32px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-            01 // SELECTED AIGC-VISUAL WORKS
+            01 // EXPERIMENTAL · 实验影像
           </h2>
 
           {/* 分解 DISSOLVE */}
@@ -233,7 +222,7 @@ export default function Visual() {
             </div>
           </div>
 
-          {newAigcProjects.map(project => (
+          {experimentalProjects.map(project => (
             <IntegratedProject project={project} key={project.title} />
           ))}
         </div>
@@ -245,93 +234,22 @@ export default function Visual() {
           </h2>
 
           <IntegratedProject project={shanghaiNight} />
+          <IntegratedProject project={newProjects.find(p => p.id === 'surf-on-pain')!} />
 
-          {activeVideo && mvs.find(v => v.id === activeVideo) && (
-            <div style={{ marginBottom: '16px', aspectRatio: '16/9', maxHeight: '500px', background: '#000', position: 'relative' }}>
-              <video
-                ref={videoRef}
-                src={mvs.find(v => v.id === activeVideo)?.src}
-                controls
-                autoPlay
-                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                onEnded={() => setActiveVideo(null)}
-              />
-            </div>
-          )}
-
-          <div className="video-grid">
-            {mvs.map((video) => (
-              <div
-                key={video.id}
-                onClick={() => setActiveVideo(video.id)}
-                onMouseEnter={() => setHoveredVideo(video.id)}
-                onMouseLeave={() => setHoveredVideo(null)}
-                className="video-item"
-              >
-                {hoveredVideo === video.id && activeVideo !== video.id && (
-                  <video
-                    src={video.src}
-                    muted
-                    loop
-                    playsInline
-                    className="video-preview"
-                  />
-                )}
-                {activeVideo !== video.id && (
-                  <>
-                    <div className="play-btn">▶</div>
-                    <span className="video-title">{video.title}</span>
-                  </>
-                )}
-              </div>
-            ))}
-          </div>
         </div>
 
-        {/* 03 // VISUAL ARCHIVE */}
+        <section id="short-film" className="visual-category"><h2>03 // SHORT FILM · 叙事短片</h2>{narrativeProjects.map(project => <IntegratedProject project={project} key={project.title} />)}</section>
+        <section id="commercials" className="visual-category"><h2>04 // COMMERCIALS · 商业影像</h2>{commercialProjects.map(project => <IntegratedProject project={project} key={project.title} />)}</section>
+
+        {/* 05 // VISUAL ARCHIVE */}
         <div id="archive" style={{ marginBottom: '80px' }}>
           <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '24px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-            03 // VISUAL ARCHIVE
+            05 // VISUAL ARCHIVE
           </h2>
 
           <div className="archive-grid">
             {archiveImages.map((img, i) => (
               <VisualImage key={img} src={`/DATA/${img}`} alt={`Visual archive frame ${i + 1}`} />
-            ))}
-          </div>
-        </div>
-
-        {/* 04 // AUDIO VISUAL */}
-        <div id="audio-visual" style={{ marginBottom: '80px' }}>
-          <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '24px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-            04 // AUDIO VISUAL
-          </h2>
-
-          <div className="av-grid">
-            {audioVisuals.map((video) => (
-              <div
-                key={video.id}
-                onClick={() => setActiveVideo(video.id)}
-                onMouseEnter={() => setHoveredVideo(video.id)}
-                onMouseLeave={() => setHoveredVideo(null)}
-                className="video-item"
-              >
-                {hoveredVideo === video.id && activeVideo !== video.id && (
-                  <video
-                    src={video.src}
-                    muted
-                    loop
-                    playsInline
-                    className="video-preview"
-                  />
-                )}
-                {activeVideo !== video.id && (
-                  <>
-                    <div className="play-btn-small">▶</div>
-                    <span className="video-title-small">{video.title}</span>
-                  </>
-                )}
-              </div>
             ))}
           </div>
         </div>

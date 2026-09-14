@@ -13,7 +13,6 @@ type Track = {
 };
 
 const djMedia = [
-  { id: 1, title: 'Live Performance', type: 'video', src: '/media/videos/466438138 (1).mp4' },
   { id: 2, title: 'DJ Photo 1', type: 'image', src: '/media/images/_cgi-bin_mmwebwx-bin_webwxgetmsgimg__&MsgID=1415363875248513545&skey=_crypt_3dc6b6cf_0059bc9f94524c48c574c5908037b052&mmweb_appid=wx_webfilehelper.jpg' },
   { id: 3, title: 'DJ Photo 2', type: 'image', src: '/media/images/_cgi-bin_mmwebwx-bin_webwxgetmsgimg__&MsgID=2162562965602022034&skey=_crypt_3dc6b6cf_0059bc9f94524c48c574c5908037b052&mmweb_appid=wx_webfilehelper.jpg' },
   { id: 4, title: 'DJ Photo 3', type: 'image', src: '/media/images/_cgi-bin_mmwebwx-bin_webwxgetmsgimg__&MsgID=2509707839106292979&skey=_crypt_3dc6b6cf_0059bc9f94524c48c574c5908037b052&mmweb_appid=wx_webfilehelper.jpg' },
@@ -61,8 +60,6 @@ export default function Sound() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [activeVideo, setActiveVideo] = useState<number | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const playTrack = (track: Track) => {
@@ -230,61 +227,6 @@ export default function Sound() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div style={{ marginTop: '40px' }}>
-          <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '16px' }}>
-            VIDEO
-          </h2>
-          {djMedia.filter(item => item.type === 'video').map((item) => (
-            <div key={item.id}>
-              {activeVideo === item.id ? (
-                <div style={{ marginBottom: '16px', aspectRatio: '9/16', maxHeight: '400px', background: '#000' }}>
-                  <video
-                    ref={videoRef}
-                    src={item.src}
-                    controls
-                    autoPlay
-                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    onEnded={() => setActiveVideo(null)}
-                  />
-                </div>
-              ) : (
-                <button
-                  onClick={() => setActiveVideo(item.id)}
-                  className="media-play-card"
-                  style={{
-                    width: '100%',
-                    maxWidth: '200px',
-                    aspectRatio: '9/16',
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexDirection: 'column',
-                    gap: '8px',
-                  }}
-                >
-                  <div style={{
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '50%',
-                    border: '1px solid rgba(255,255,255,0.5)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#fff',
-                    fontSize: '14px',
-                  }}>
-                    ▶
-                  </div>
-                  <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.8)' }}>{item.title}</span>
-                </button>
-              )}
-            </div>
-          ))}
         </div>
 
         <div style={{ marginTop: '40px' }}>

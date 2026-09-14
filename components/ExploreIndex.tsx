@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const works = [
-  { title: 'ATTACHMENT', category: 'Experimental film · 00:50', image: '/media/images/recent/attachment/i2.webp', href: '/visual#attachment', note: '观看影片 ↗' },
+  { title: 'ATTACHMENT', category: 'Experimental film', image: '/media/images/recent/attachment/i2.webp', href: '/visual#attachment', note: '探索画面 ↗' },
   { title: 'SHANGHAI NIGHT', category: 'Music video', image: '/media/images/recent/shanghai-night/k1.webp', href: '/visual#music-video', note: '探索画面 ↗' },
   { title: '拍拍 TAPTAP', category: 'AI horror short film', image: '/media/images/recent/taptap/h1.webp', href: '/visual#taptap', note: '探索画面 ↗' },
 ];

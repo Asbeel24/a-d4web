@@ -22,29 +22,28 @@ The tag preserves the tracked repository, not local environment variables or hos
 - Existing home canvas retained; added personal/Studio relationship and exploration links.
 - Selected film stills and Play / Listen destinations below the hero.
 - Studio page with filmmaking, education, workflow consulting and contact details from the supplied Studio PDF.
-- Click-to-load ATTACHMENT player; native controls, inline playback and direct-file fallback.
+- Image-only portfolio; all local video playback and hosted video assets removed at user request. Audio playback remains.
 - Visual section anchors, readable fixed navigation and mobile two-row navigation.
 - Updated About copy and route-specific metadata; keyboard skip link.
 
 ## Media provenance
 
-`public/media/videos/recent/attachment.mp4` is a web derivative of `Attachment/AttachmentFinal.MOV` in the supplied materials folder. Original untouched. Duration ~50 seconds; H.264/AAC, 1280px wide, fast-start MP4, approximately 8 MB. The name identifies this as the final version; public-release suitability should be checked before production deployment.
+FOLDIN stills are extracted at 1 second from the supplied Foldin clips 13, 14 and 2, using 1280px WebP derivatives. Original clips are untouched. FOLDIN and PLUIE are classified as narrative shorts, matching the Studio introduction. Existing FOLDIN and 晓力的一天 storyboard pages appear in expandable full-width sections instead of cropped thumbnails.
 
-Other homepage images reuse existing repository images. No previews or individual shots were presented as full films. Shanghai Night and TAPTAP cards explicitly lead to image collections.
+SURF ON PAIN and AGENT1 use optimized copies of images 1–3 in their respective supplied PIC folders. No new role credits were inferred. COUPURE is not added because the inspected folder imagery does not match the introduction.
+
+Removed tracked MP4/MOV assets remain recoverable from earlier Git commits; no history rewrite was performed. Source materials remain untouched.
 
 ## Useful follow-up material
 
-- Exact final film filenames for Shanghai Night (`shnpre.MOV` appears to be a preview), TAPTAP, PLUIEEE and FOLDIN.
+- Confirmed COUPURE stills matching the Studio introduction; final movie files are no longer needed for this image-only version.
 - Which projects are preferred homepage selections.
 - For richer case pages: year, commissioned/independent status, exact credits, and final delivery scope.
 - Official Studio wordmark / preferred key image if a separate identity is desired.
 
 ## Validation
 
-- ESLint and production build, including TypeScript.
-- Desktop home / selected works / Studio visual checks.
-- 390px mobile home and Studio; Studio has no horizontal overflow.
-- Studio contact anchor and successful WeChat copy feedback.
-- Home-to-ATTACHMENT anchor; explicit play button starts video, readyState 4, playback time advances, duration ~50 seconds.
-- Complete transcoded video decodes without errors using FFmpeg.
-- Original Creative, EDA and Sound implementations retained; these were not exhaustively retested in this iteration.
+- ESLint / production build and TypeScript.
+- Verify that app/components contain no video elements, video asset references or FilmPlayer.
+- Check desktop/mobile FOLDIN images and expandable, uncropped storyboard pages.
+- Original audio playback and creative experiments retained.
