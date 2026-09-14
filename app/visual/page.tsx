@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
+import FilmPlayer from '@/components/FilmPlayer';
 
 const videos = [
   { id: 1, title: 'JereimahsParty', type: 'mv', src: '/media/videos/JereimahsParty.mp4' },
@@ -28,6 +29,8 @@ type VisualProject = {
   images: string[];
   layout?: 'portrait' | 'wide' | 'storyboard';
   roles?: string;
+  id?: string;
+  video?: string;
 };
 
 const newProjects: VisualProject[] = [
@@ -39,6 +42,7 @@ const newProjects: VisualProject[] = [
   },
   {
     title: '拍拍 TAPTAP',
+    id: 'taptap',
     subtitle: 'AI horror short film',
     description: 'TapNow × 葬 AI 恐怖片黑客松作品。',
     images: Array.from({ length: 6 }, (_, i) => `/media/images/recent/taptap/h${i + 1}.webp`),
@@ -52,6 +56,8 @@ const newProjects: VisualProject[] = [
   },
   {
     title: 'ATTACHMENT',
+    id: 'attachment',
+    video: '/media/videos/recent/attachment.mp4',
     subtitle: 'AI experimental film',
     description: '以探索实验影像为核心意象，生成图像来表达肉体、情绪与依赖关系。',
     images: Array.from({ length: 6 }, (_, i) => `/media/images/recent/attachment/i${i + 1}.webp`),
@@ -100,7 +106,7 @@ function VisualImage({ src, alt, priority = false }: { src: string; alt: string;
 
 function IntegratedProject({ project }: { project: VisualProject }) {
   return (
-    <article className="integrated-project">
+    <article className="integrated-project" id={project.id}>
       <header className="project-header integrated-project-header">
         <div>
           <h3>{project.title}</h3>
@@ -112,6 +118,7 @@ function IntegratedProject({ project }: { project: VisualProject }) {
         </div>
       </header>
 
+      {project.video && <FilmPlayer src={project.video} poster={project.images[1]} title={project.title} />}
       <div className={`integrated-grid is-${project.layout ?? 'cinematic'}`}>
         {project.images.map((src, index) => (
           <div className="integrated-project-image" key={src}>
@@ -148,26 +155,26 @@ export default function Visual() {
         </h1>
 
         <div className="visual-index motion-rise motion-delay-2">
-          <div>
+          <a href="#aigc">
             <span>01</span>
             <strong>AIGC visual works</strong>
-          </div>
-          <div>
+          </a>
+          <a href="#music-video">
             <span>02</span>
             <strong>Music video</strong>
-          </div>
-          <div>
+          </a>
+          <a href="#archive">
             <span>03</span>
             <strong>Visual archive</strong>
-          </div>
-          <div>
+          </a>
+          <a href="#audio-visual">
             <span>04</span>
             <strong>Audio visual</strong>
-          </div>
+          </a>
         </div>
 
         {/* 01 // SELECTED AIGC-VISUAL WORKS */}
-        <div style={{ marginTop: '60px', marginBottom: '80px' }}>
+        <div id="aigc" style={{ marginTop: '60px', marginBottom: '80px' }}>
           <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '32px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             01 // SELECTED AIGC-VISUAL WORKS
           </h2>
@@ -232,7 +239,7 @@ export default function Visual() {
         </div>
 
         {/* 02 // MUSIC VIDEO */}
-        <div style={{ marginBottom: '80px' }}>
+        <div id="music-video" style={{ marginBottom: '80px' }}>
           <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '24px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             02 // MUSIC VIDEO
           </h2>
@@ -282,7 +289,7 @@ export default function Visual() {
         </div>
 
         {/* 03 // VISUAL ARCHIVE */}
-        <div style={{ marginBottom: '80px' }}>
+        <div id="archive" style={{ marginBottom: '80px' }}>
           <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '24px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             03 // VISUAL ARCHIVE
           </h2>
@@ -295,7 +302,7 @@ export default function Visual() {
         </div>
 
         {/* 04 // AUDIO VISUAL */}
-        <div style={{ marginBottom: '80px' }}>
+        <div id="audio-visual" style={{ marginBottom: '80px' }}>
           <h2 style={{ fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555', marginBottom: '24px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             04 // AUDIO VISUAL
           </h2>
@@ -422,7 +429,7 @@ export default function Visual() {
           border: 1px solid rgba(255,255,255,0.08);
           background: rgba(255,255,255,0.08);
         }
-        .visual-index div {
+        .visual-index a {
           display: grid;
           gap: 10px;
           padding: 16px;

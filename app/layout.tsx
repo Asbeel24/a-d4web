@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ASBEEL/D4nn9 | Music production",
-  description: "Digital Artist, Music producer, DJ, based in London",
+  title: { default: "ASBEEL / D4nn9 — Sound, Image & Code", template: "%s | D4nn9" },
+  description: "D4nn9 的声音、影像与互动实验。跨媒介数字艺术家、音乐制作人，IYKYK Studio 主理人。London / Shenzhen.",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

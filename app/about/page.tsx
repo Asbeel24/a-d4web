@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
 
 export default function About() {
@@ -27,7 +28,7 @@ export default function About() {
               </div>
               <div>
                 <span>Output</span>
-                <strong>AV, beats, live sets</strong>
+                <strong>Film, sound, interaction</strong>
               </div>
             </div>
 
@@ -48,10 +49,10 @@ export default function About() {
             <div style={{ marginBottom: '40px' }}>
               <div style={{ fontSize: '10px', color: '#e64a19', letterSpacing: '0.1em', marginBottom: '12px' }}>BIOGRAPHY</div>
               <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.8, marginBottom: '16px' }}>
-                跨媒介数字艺术家、实验音乐制作人。创作风格融合超现实3D视觉、环境音乐与前卫声音设计，构建全新沉浸式体验。
+                跨媒介数字艺术家、实验音乐制作人，IYKYK Studio 主理人。创作风格融合超现实3D视觉、环境音乐与前卫声音设计，构建全新沉浸式体验。
               </p>
               <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.8 }}>
-                Electronic music producer, beatmaker, DJ, digital artist based in London/Shenzhen. Specializing in Bass/Leftfield/Trap/Drill music. Exploring AIGC with art right now.
+                Electronic music producer, beatmaker, DJ, digital artist based in London/Shenzhen. Specializing in Bass/Leftfield/Trap/Drill music. Founder of IYKYK Studio, working across AI filmmaking, creative education and production workflows.
               </p>
             </div>
 
@@ -75,6 +76,7 @@ export default function About() {
               </div>
             </div>
 
+            <Link href="/studio" className="about-studio-link">IYKYK Studio — 影像、课程与创意技术 ↗</Link>
             <div style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', gap: '32px' }}>
               <a href="https://www.instagram.com/asbeel24/" target="_blank" rel="noopener noreferrer" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', textDecoration: 'none', letterSpacing: '0.15em', textTransform: 'uppercase', transition: 'color 0.2s' }}>
                 Instagram

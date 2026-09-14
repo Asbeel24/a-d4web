@@ -136,3 +136,98 @@ button:focus-visible {
     transition-duration: 1ms !important;
   }
 }
+
+/* Shared editorial layer: the playground remains the main entry. */
+:root { --muted: #a6a6a6; --rule: #292929; --accent: #e77852; }
+[id] { scroll-margin-top: 125px; }
+.skip-link { position: fixed; left: 20px; top: -80px; z-index: 110; padding: 12px; background: white; color: black; }
+.skip-link:focus { top: 12px; }
+.home-studio-note { margin-top: 20px; font-size: 11px; color: #aaa; line-height: 1.8; }
+.home-studio-note a { color: #ddd; border-bottom: 1px solid #666; }
+.home-paths { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 28px; font-size: 12px; }
+.home-paths a { padding: 8px 0; border-bottom: 1px solid #777; }
+.explore-section, .studio-page { padding: 80px max(5vw, 24px) 0; max-width: 1600px; margin: auto; }
+.explore-section { padding-bottom: 32px; }
+.eyebrow { display: block; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); line-height: 1.8; }
+.section-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; border-top: 1px solid var(--rule); color: var(--muted); font-size: 11px; }
+.editorial-title { font-family: var(--font-geist-sans), sans-serif; font-size: clamp(28px, 3.8vw, 56px); font-weight: 500; letter-spacing: -.035em; line-height: 1.3; margin: 24px 0 44px; }
+.selected-works { display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px; }
+.selected-work:first-child { grid-row: span 2; }
+.selected-work-image { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #151515; }
+.selected-work:first-child .selected-work-image { aspect-ratio: 4/5; }
+.selected-work-image img { object-fit: cover; transition: transform 500ms ease; }
+.selected-work:hover img { transform: scale(1.025); }
+.selected-work-image span { position: absolute; bottom: 20px; left: 20px; padding: 9px 12px; background: #080808d9; color: white; font-size: 11px; }
+.selected-work-caption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-top: 16px; }
+.selected-work-caption h3 { font-size: 13px; letter-spacing: .05em; }
+.selected-work-caption span { font-size: 10px; color: var(--muted); }
+.explore-doors { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 100px; }
+.explore-doors > a { border-top: 1px solid var(--rule); padding: 24px 0 48px; }
+.explore-doors h2 { font-family: var(--font-geist-sans), sans-serif; font-size: clamp(22px, 2.5vw, 36px); margin: 28px 0 16px; font-weight: 500; }
+.explore-doors h2 span { float: right; color: var(--muted); transition: transform 200ms; }
+.explore-doors a:hover h2 span { transform: translate(4px,-4px); }
+.explore-doors p, .studio-page p { font-family: var(--font-geist-sans), sans-serif; color: #b5b5b5; line-height: 1.9; font-size: 15px; max-width: 60ch; }
+.studio-invitation { border-top: 1px solid var(--rule); display: flex; gap: 24px; justify-content: space-between; align-items: center; padding: 40px 0; }
+.studio-invitation p { margin-top: 12px; font-size: 18px; }
+.studio-invitation > a { font-size: 12px; border-bottom: 1px solid #777; padding: 10px 0; white-space: nowrap; }
+.studio-page { padding-top: 150px; }
+.studio-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 7vw; align-items: center; padding-bottom: 100px; }
+.studio-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 11vw, 168px); line-height: .86; letter-spacing: -.025em; margin: 40px 0; }
+.studio-hero h1 span { display: block; color: #777; }
+.studio-page .studio-lead { font-size: clamp(22px, 2.5vw, 36px); color: white; line-height: 1.45; }
+.studio-intro { margin: 24px 0; }
+.text-link, .practice-row a, .studio-founder a { display: inline-block; font-size: 12px; padding: 10px 0; border-bottom: 1px solid #737373; }
+.studio-hero-image { position: relative; aspect-ratio: 3/4; background: #171717; }
+.studio-hero-image img { object-fit: cover; }
+.studio-hero-image a { position: absolute; bottom: 20px; left: 20px; right: 20px; padding: 12px; background: #000b; font-size: 10px; }
+.practice-row { display: grid; grid-template-columns: 60px 1fr 1.4fr; gap: 30px; padding: 46px 0; border-bottom: 1px solid var(--rule); }
+.practice-number { color: var(--accent); font-size: 12px; }
+.practice-row h2 { font-family: var(--font-geist-sans),sans-serif; font-weight: 500; font-size: 28px; }
+.practice-row small { display: block; font-family: var(--font-geist-mono),monospace; font-size: 11px; margin-top: 12px; color: var(--muted); font-weight: 400; }
+.studio-page .practice-detail { font-size: 12px; margin: 16px 0; color: #999; }
+.studio-learning { display: grid; grid-template-columns: 1fr 1fr; gap: 9vw; margin: 100px 0; }
+.studio-learning ol { list-style: none; }
+.studio-learning li { display: flex; gap: 30px; padding: 24px 0; border-top: 1px solid var(--rule); }
+.studio-learning li > span { color: var(--accent); font-size: 12px; }
+.studio-learning h3 { font-size: 20px; font-family: var(--font-geist-sans),sans-serif; margin-bottom: 8px; }
+.studio-learning li p { font-size: 13px; }
+.studio-founder { border-top: 1px solid var(--rule); padding: 48px 0 88px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.studio-founder h2 { font-size: 48px; margin-bottom: 20px; }
+.studio-founder p { margin-bottom: 20px; }
+.studio-contact { border-top: 1px solid var(--rule); padding-top: 36px; }
+.studio-contact h2 { font-family: var(--font-geist-sans),sans-serif; font-size: clamp(40px, 7vw, 96px); font-weight: 500; line-height: 1.2; letter-spacing: -.04em; margin: 40px 0 28px; }
+.contact-options { display: flex; flex-wrap: wrap; gap: 24px 48px; margin-top: 36px; }
+.contact-options a, .contact-options button { padding: 14px 0; font-size: clamp(12px, 1.6vw, 20px); border-bottom: 1px solid #777; text-align: left; cursor: pointer; }
+.contact-options button span { color: #aaa; font-size: 11px; }
+.studio-page .copy-status { min-height: 30px; padding-top: 12px; font-size: 12px; }
+.studio-footer { border-top: 1px solid var(--rule); margin-top: 64px; padding: 28px 0; display: flex; justify-content: space-between; gap: 20px; color: #999; font-size: 10px; }
+.about-studio-link { display: inline-block; margin-top: 32px; padding: 14px 0; border-bottom: 1px solid #777; font-size: 12px; }
+.film-player { margin: 28px 0; }
+.film-player video { width: 100%; max-height: 75dvh; display: block; background: #111; }
+.film-caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 12px 0; color: #bdbdbd; font-size: 11px; }
+.film-caption a { text-decoration: underline; text-underline-offset: 4px; }
+@media(max-width: 760px) {
+ .explore-section { padding-top: 48px; }
+ .selected-works, .explore-doors, .studio-hero, .studio-learning, .studio-founder { grid-template-columns: 1fr; gap: 36px; }
+ .selected-work:first-child .selected-work-image { aspect-ratio: 4/3; }
+ .explore-doors { margin-top: 64px; gap: 0; }
+ .studio-invitation { align-items: flex-start; flex-direction: column; }
+ .studio-page { padding-top: 150px; }
+ .studio-hero { padding-bottom: 64px; }
+ .studio-hero-image { aspect-ratio: 4/3; }
+ .studio-hero h1 { margin: 28px 0; }
+ .practice-row { grid-template-columns: 24px 1fr; gap: 18px; padding: 32px 0; }
+ .practice-row > div { grid-column: 2; }
+ .studio-learning { margin: 64px 0; }
+ .studio-founder { padding-bottom: 64px; }
+ .studio-footer { flex-direction: column; }
+ .section-heading { align-items: flex-start; }
+ .section-heading > span:last-child:not(:first-child) { display: none; }
+ .about-padding, .visual-padding { padding-top: 36px !important; }
+}
+.studio-page p.eyebrow { font-family: var(--font-geist-mono), monospace; font-size: 10px; color: var(--muted); }
+.film-poster { display: block; position: relative; width: 100%; aspect-ratio: 2.35; cursor: pointer; background: #111; }
+.film-poster img { object-fit: cover; }
+.film-poster span { position: absolute; left: 24px; bottom: 24px; padding: 12px 18px; background: #000c; font-size: 12px; border: 1px solid #888; }
+.film-poster:hover span { background: #fff; color: #000; }
+@media(max-width:760px) { .film-poster { aspect-ratio: 16/9; } .film-poster span { left: 12px; bottom: 12px; } }

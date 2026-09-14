@@ -1,10 +1,13 @@
 'use client';
 
 import DigitalSignalCanvas from '@/components/DigitalSignalCanvas';
+import Link from 'next/link';
+import ExploreIndex from '@/components/ExploreIndex';
 import SocialLinks from '@/components/SocialLinks';
 
 export default function Home() {
   return (
+    <>
     <div className="home-shell relative min-h-screen overflow-hidden" style={{ background: '#030303', color: '#fff' }}>
       <DigitalSignalCanvas />
       <div className="home-art-mask" aria-hidden="true" />
@@ -12,7 +15,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="home-hero" style={{
-        minHeight: '100vh',
+        minHeight: '100dvh',
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
         alignItems: 'center',
@@ -49,10 +52,10 @@ export default function Home() {
             fontSize: '0.65rem',
             letterSpacing: '0.25em',
             textTransform: 'uppercase',
-            color: '#555',
+            color: '#949494',
             marginBottom: '1.5rem',
           }}>
-            Digital Artist & Music Producer
+            Digital Artist · Sound / Image / Code
           </div>
 
           <p style={{
@@ -61,9 +64,11 @@ export default function Home() {
             color: 'rgba(255,255,255,0.7)',
             maxWidth: '360px',
           }}>
-            Based in London and Shenzhen. Crafting sonic and visual experiences that transcend the boundaries between electronic, ambient, and experimental genres.
+            在声音、影像与代码之间游走。这里是我的作品集，也是一处可以停留、探索和游玩的数字空间。
           </p>
 
+          <p className="home-studio-note">London / Shenzhen · <Link href="/studio">IYKYK Studio 主理人 ↗</Link></p>
+          <div className="home-paths"><a href="#explore">向下探索 ↓</a><Link href="/eda-project">进入互动实验 ↗</Link></div>
           {/* Social links */}
           <div style={{ marginTop: '2rem' }}>
             <SocialLinks />
@@ -83,7 +88,7 @@ export default function Home() {
           <div style={{
             fontSize: '0.6rem',
             letterSpacing: '0.25em',
-            color: '#555',
+            color: '#949494',
             textTransform: 'uppercase',
           }}>
             London / Shenzhen
@@ -93,10 +98,10 @@ export default function Home() {
             <span style={{
               fontSize: '0.6rem',
               letterSpacing: '0.2em',
-              color: '#555',
+              color: '#949494',
               textTransform: 'uppercase',
             }}>
-              Scroll to explore
+              Move your cursor · 探索信号
             </span>
           </div>
         </div>
@@ -172,5 +177,7 @@ export default function Home() {
         }
       `}</style>
     </div>
+    <ExploreIndex />
+    </>
   );
 }
