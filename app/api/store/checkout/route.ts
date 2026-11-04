@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
   const email = (body.email ?? '').trim();
   if (email && !EMAIL.test(email)) return NextResponse.json({ error: 'invalid_email' }, { status: 400 });
-  const type: PayType = PAY_TYPES.includes(body.type as PayType) ? (body.type as PayType) : 'alipay';
+  const type: PayType = PAY_TYPES.includes(body.type as PayType) ? (body.type as PayType) : 'wxpay';
 
   const items = Array.from(new Set(body.items ?? []))
     .map((s) => getProduct(s))

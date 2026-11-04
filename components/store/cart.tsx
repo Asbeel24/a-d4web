@@ -13,6 +13,7 @@ type CartCtx = {
   add: (slug: string) => void;
   remove: (slug: string) => void;
   clear: () => void;
+  toast: (msg: string) => void;
 };
 
 const Ctx = createContext<CartCtx | null>(null);
@@ -63,13 +64,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       add,
       remove: (s) => setSlugs((x) => x.filter((y) => y !== s)),
       clear: () => setSlugs([]),
+      toast: setMsg,
     };
   }, [slugs, ready, add]);
 
   return (
     <Ctx.Provider value={value}>
       {children}
-      <div className={`st-toast${msg ? ' show' : ''}`} role="status" aria-live="polite">
+      <div className={`toast${msg ? ' show' : ''}`} role="status" aria-live="polite">
         {msg}
       </div>
     </Ctx.Provider>

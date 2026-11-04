@@ -11,8 +11,9 @@
 import { createHash, randomBytes } from 'node:crypto';
 import { getProductByCode, isPurchasable, type Product } from './products';
 
+// Only WeChat Pay is offered. Add 'alipay' back here and in the cart page to re-enable Alipay.
 export type PayType = 'alipay' | 'wxpay';
-export const PAY_TYPES: PayType[] = ['alipay', 'wxpay'];
+export const PAY_TYPES: PayType[] = ['wxpay'];
 
 export function zpayConfig() {
   const pid = process.env.ZPAY_PID ?? '';
