@@ -19,7 +19,10 @@ export function zpayConfig() {
   const key = process.env.ZPAY_KEY ?? '';
   const gateway = (process.env.ZPAY_GATEWAY || 'https://zpayz.cn').replace(/\/+$/, '');
   const siteUrl = (process.env.SITE_URL || '').replace(/\/+$/, '');
-  return { pid, key, gateway, siteUrl, ready: Boolean(pid && key && siteUrl) };
+  // ZPAY rejects notify/return URLs that don't start with http:// or https://.
+  const siteUrlValid = /^https?:\/\/[^/\s]+/.test(siteUrl);
+  if (siteUrl && !siteUrlValid) console.warn('[store] SITE_URL must start with http:// or https://, got', siteUrl);
+  return { pid, key, gateway, siteUrl, ready: Boolean(pid && key && siteUrlValid) };
 }
 
 // 易支付 signature: drop sign / sign_type / empty values, sort keys by ASCII,
