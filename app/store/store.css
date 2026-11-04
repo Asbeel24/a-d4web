@@ -228,3 +228,23 @@
   .st-specs { grid-template-columns: 1fr; }
   .st-form { padding: 20px; }
 }
+
+/* ---- warez-audio pages (.wz) adapted to the portfolio ---- */
+.wz {
+  --sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  position: relative;
+  min-height: 100vh;
+}
+/* The portfolio resets every margin; the store copy relies on browser defaults. */
+.wz :where(h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote, fieldset) { margin: revert; }
+.wz :where(ul, ol) { padding: revert; }
+/* Fixed site nav + store bar sit above the content. */
+.wz .page-top, .wz .hero { padding-top: 40px; }
+.st-page.is-wz { padding-top: 120px; padding-bottom: 0; background: #070807; }
+.st-page.is-wz .st-bar { max-width: 1240px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px) 0; }
+@media (max-width: 768px) {
+  .st-page.is-wz { padding-top: 140px; }
+}
+.st-pay-one { grid-template-columns: 1fr; }

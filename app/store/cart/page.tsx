@@ -5,11 +5,6 @@ import { useState } from 'react';
 import { useCart } from '@/components/store/cart';
 import { formatPrice } from '@/lib/store/products';
 
-const METHODS = [
-  { id: 'alipay', label: '支付宝' },
-  { id: 'wxpay', label: '微信支付' },
-];
-
 const ERRORS: Record<string, string> = {
   payments_not_configured: '支付通道还没配置好，请稍后再来。',
   invalid_email: '邮箱格式不对，请再检查一下。',
@@ -19,7 +14,6 @@ const ERRORS: Record<string, string> = {
 export default function Cart() {
   const { items, total, ready, remove } = useCart();
   const [email, setEmail] = useState('');
-  const [type, setType] = useState('alipay');
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
@@ -31,7 +25,7 @@ export default function Cart() {
       const r = await fetch('/api/store/checkout', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email, type, items: items.map((p) => p.slug) }),
+        body: JSON.stringify({ email, type: 'wxpay', items: items.map((p) => p.slug) }),
       });
       const d = await r.json();
       if (!r.ok || !d.paymentUrl) throw new Error(d.error);
@@ -77,13 +71,11 @@ export default function Cart() {
 
       <form className="st-form" onSubmit={pay}>
         <div className="st-label">PAYMENT</div>
-        <div className="st-pay">
-          {METHODS.map((m) => (
-            <label key={m.id} className={type === m.id ? 'is-on' : ''}>
-              <input type="radio" name="type" value={m.id} checked={type === m.id} onChange={() => setType(m.id)} />
-              {m.label}
-            </label>
-          ))}
+        <div className="st-pay st-pay-one">
+          <label className="is-on">
+            <input type="radio" name="type" value="wxpay" checked readOnly />
+            微信支付
+          </label>
         </div>
 
         <label className="st-label" htmlFor="st-email">EMAIL（选填，用于找回订单）</label>
@@ -100,7 +92,7 @@ export default function Cart() {
         {err && <p className="st-err" role="alert">{err}</p>}
 
         <button className="st-btn st-btn-solid st-btn-block" disabled={busy || !ready || items.length === 0}>
-          {busy ? '正在跳转支付…' : `去支付 · ${formatPrice(total)}`}
+          {busy ? '正在跳转支付…' : `微信支付 · ${formatPrice(total)}`}
         </button>
         <p className="st-note">
           数字商品，付款后页面会直接显示下载方式。请收藏付款成功页，方便之后再次下载。
