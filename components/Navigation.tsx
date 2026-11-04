@@ -8,6 +8,7 @@ const navItems = [
   { href: '/creative', label: 'CREATIVE' },
   { href: '/sound', label: 'SOUND' },
   { href: '/visual', label: 'VISUAL' },
+  { href: '/store', label: 'STORE' },
   { href: '/about', label: 'ABOUT' },
 ];
 

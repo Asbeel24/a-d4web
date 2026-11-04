@@ -52,3 +52,23 @@ The next optimization pass should add compressed thumbnails, image lazy loading,
 ## Notes
 
 EDA projects are currently served from `data/eda-projects.json` through `/api/eda-projects/[id]` and rendered in sandboxed iframes. A future pass should add titles, tags, preview images, and a curated featured/archive structure.
+
+## Digital Store (`/store`)
+
+The `STORE` nav link opens a small shop for plugins and software, paid through ZPAY (易支付 protocol, Alipay / WeChat Pay).
+
+- Products: edit `lib/store/products.ts` (name, price, status, images, A/B audio). Images and previews live in `public/store/`.
+- Flow: `/store` → `/store/[slug]` → `/store/cart` → ZPAY payment page → `/store/success`.
+- `POST /api/store/checkout` recomputes the price on the server and returns a signed ZPAY `submit.php` URL.
+- `/api/store/notify` is ZPAY's async callback: it verifies the MD5 signature and amount, logs `[store] paid …` to Vercel logs, and replies `success`.
+- `/store/success` verifies the same signature from the return URL before showing download links, so the page works as a receipt. No database: the product codes are encoded in the order number.
+
+Set these in Vercel → Settings → Environment Variables (never commit them):
+
+| Variable | Value |
+|---|---|
+| `ZPAY_PID` | ZPAY merchant id (商户ID) |
+| `ZPAY_KEY` | ZPAY merchant key (商户密钥) |
+| `SITE_URL` | Public site address, e.g. `https://your-domain.com` |
+| `ZPAY_GATEWAY` | Optional, defaults to `https://zpayz.cn` |
+| `STORE_DELIVERY_HARDICK` | Download link shown after a HARDICK purchase (one per paid product: `STORE_DELIVERY_<SLUG>`) |
