@@ -51,8 +51,7 @@ export const products: Product[] = [
     summary:
       '挂在 808、Kick 或者鼓组总线上，一拧就是更暖、更厚、更响。808 在手机外放上也听得见，峰值守在 −1 dBFS。',
     status: 'on-sale',
-    price: 0.01,
-    compareAt: 39.9,
+    price: 39.9,
     formats: ['VST3', 'AU'],
     platforms: ['macOS', 'Windows'],
     image: '/store/media/hardick/ui-050-1000.webp',
